@@ -4,6 +4,9 @@ import { HashRouter } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router";
 import LandingPage from './Final Project/LandingPage';
 
+const CLIENT_ID = "9cecbacf65564b4c80471ac14f86d430";
+const CLIENT_SECRET = "ac38790dd2b14fbeac37d829f8be267a";
+
 function App() {
   return (
     <HashRouter>
