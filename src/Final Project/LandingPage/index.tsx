@@ -1,15 +1,15 @@
 import LoginAccount from "../LoginAccount";
-import { Routes, Route, Navigate } from "react-router-dom";
-import "./index.css";
+import { Routes, Route } from "react-router-dom";
 import CreateAccount from "../CreateAccount";
-function LandingPage() {
+
+function Impact() {
     return (
         <>
-            <LoginAccount />
             <Routes>
-                <Route path="CreateAccount" element={<CreateAccount/>} />
+                <Route path="/" element={<LoginAccount />} />
+                <Route path="CreateAccount" element={<CreateAccount />} />
             </Routes>
         </>
     );
 }
-export default LandingPage;
+export default Impact;
