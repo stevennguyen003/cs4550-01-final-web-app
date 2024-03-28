@@ -2,8 +2,9 @@ import React from 'react';
 import './App.css';
 import { HashRouter } from "react-router-dom";
 import { Routes, Route } from "react-router";
-import Impact from './Final Project/LandingPage';
+import LandingPage from './Final Project/LandingPage';
 import { useState, useEffect } from 'react';
+import CreateAccount from './Final Project/CreateAccount';
 
 function App() {
   /*
@@ -45,11 +46,10 @@ function App() {
 
   return (
     <HashRouter>
-      <div>
         <Routes>
-          <Route path="/*" element={<Impact />} />
+          <Route path="/*" element={<LandingPage />} />
+          <Route path="CreateAccount" element={<CreateAccount />} />
         </Routes>
-      </div>
     </HashRouter>
   );
 }

@@ -2,7 +2,7 @@ import "./index.css";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function LoginAccount() {
+function LoginSidebar() {
     return (
         <>
             <div className="login-account-body">
@@ -32,4 +32,4 @@ function LoginAccount() {
         </>
     )
 }
-export default LoginAccount;
+export default LoginSidebar;

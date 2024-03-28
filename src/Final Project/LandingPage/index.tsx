@@ -1,15 +1,12 @@
-import LoginAccount from "../LoginAccount";
+import LoginSidebar from "./Sidebar";
 import { Routes, Route } from "react-router-dom";
 import CreateAccount from "../CreateAccount";
 
-function Impact() {
+function LandingPage() {
     return (
         <>
-            <Routes>
-                <Route path="/" element={<LoginAccount />} />
-                <Route path="CreateAccount" element={<CreateAccount />} />
-            </Routes>
+            <LoginSidebar />
         </>
     );
 }
-export default Impact;
+export default LandingPage;
