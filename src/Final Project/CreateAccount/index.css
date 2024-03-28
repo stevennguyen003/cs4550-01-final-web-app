@@ -21,8 +21,9 @@
     flex-direction: row;
 }
 
-.create-account-box button {
+.create-account-box a {
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .create-account-box a {

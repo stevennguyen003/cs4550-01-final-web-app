@@ -21,10 +21,10 @@ function CreateAccount() {
                         </div>
                         <div className="form-group">
                             <label htmlFor="login-account-dob"><b>DATE OF BIRTH</b></label>
-                            <input type="date" className="login-account-dob form-control form-control-sm" />
+                            <input type="date" className="form-control form-control-sm" id="login-account-dob"/>
                         </div>
                         <br />
-                        <button type="button" className="btn btn-primary"><b>sign up</b></button>
+                        <Link to="/Home" className="btn btn-primary"><b>sign up</b></Link>
                         <Link to="/">go back</Link>
                     </form>
                 </div>

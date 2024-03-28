@@ -5,11 +5,14 @@ import { Routes, Route } from "react-router";
 import LandingPage from './Final Project/LandingPage';
 import { useState, useEffect } from 'react';
 import CreateAccount from './Final Project/CreateAccount';
+import Home from './Final Project/Home';
 
 function App() {
   /*
-  const [searchInput, setSearchInput] = useState("");
+  //const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
+
+  const searchInput = "Taylor Swift";
 
   useEffect(() => {
     var authParameters = {
@@ -23,7 +26,7 @@ function App() {
       .then(result => result.json())
       .then(data => setAccessToken(data.access_token))
 
-      // Input Error Handling Here
+    // Input Error Handling Here
   }, [])
 
   async function search() {
@@ -46,10 +49,11 @@ function App() {
 
   return (
     <HashRouter>
-        <Routes>
-          <Route path="/*" element={<LandingPage />} />
-          <Route path="CreateAccount" element={<CreateAccount />} />
-        </Routes>
+      <Routes>
+        <Route path="/*" element={<LandingPage />} />
+        <Route path="CreateAccount" element={<CreateAccount />} />
+        <Route path="Home" element={<Home />} />
+      </Routes>
     </HashRouter>
   );
 }
