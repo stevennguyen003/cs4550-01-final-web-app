@@ -1,15 +1,14 @@
 import LoginSidebar from "./Sidebar";
-import Galaxy from "./Galaxy";
-import "./body.css";
-import { Routes, Route } from "react-router-dom";
-import CreateAccount from "../CreateAccount";
+import "./index.css";
 
 function LandingPage() {
     return (
         <>
-            <div className="login-account-body">
+            <div className="landing-page-body wd-flex-row-container">
                 <LoginSidebar />
-                <Galaxy />
+                <div className="col-md-9">
+                    <h1>Space</h1>
+                </div>
             </div>
         </>
     );

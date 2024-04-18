@@ -5,7 +5,7 @@ function CreateAccount() {
         <>
             <div className="create-account-body">
                 <div className="create-account-box">
-                    <h1 className="create-account-header">create an account</h1> <br />
+                    <h1 className="create-account-header">create an account &#127769;</h1> <br />
                     <form>
                         <div className="form-group">
                             <label htmlFor="login-account-email"><b>EMAIL</b></label> <br />

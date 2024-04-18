@@ -6,6 +6,7 @@
     position: sticky;
     top: 0;
     background-color: rgb(19, 19, 21);
+    flex-grow: 1;
 }
 
 .login-screen-header {
