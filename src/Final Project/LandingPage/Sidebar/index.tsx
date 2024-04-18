@@ -11,10 +11,6 @@ function LoginSidebar() {
                 <div className="login-account-form">
                     <form>
                         <div className="form-group">
-                            <label htmlFor="login-account-email"><b>EMAIL</b></label> <br />
-                            <input type="email" className="form-control" id="login-account-email" />
-                        </div>
-                        <div className="form-group">
                             <label htmlFor="login-account-username"><b>USERNAME</b></label> <br />
                             <input type="username" className="form-control" id="login-account-username" />
                         </div>
