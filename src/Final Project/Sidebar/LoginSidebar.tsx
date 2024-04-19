@@ -5,12 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function LoginSidebar() {
     return (
         <>
-            <div className="login-screen-bar col-12 col-md-3">
-                <h1 className="login-screen-header">welcome back &#129415;</h1>
+            <div className="login-screen-bar " style={{height:"100vh"}}>
+                <h1 className="login-screen-header text-gradient">welcome back &#129415;</h1>
                 <br />
                 <div className="login-account-form">
                     <form>
-                        <div className="form-group">
+                        <div className="form-group"> 
                             <label htmlFor="login-account-username"><b>USERNAME</b></label> <br />
                             <input type="username" className="form-control" id="login-account-username" />
                         </div>
@@ -21,7 +21,7 @@ function LoginSidebar() {
                         <br />
                         <Link to="/Home" className="btn btn-primary"><b>continue</b></Link>
                     </form>
-                    <Link to="/CreateAccount">register an account</Link>
+                    <Link to="/Main/CreateAccount">register an account</Link>
                 </div>
             </div>
         </>
