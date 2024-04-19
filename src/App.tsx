@@ -1,11 +1,13 @@
-import React from 'react';
-import './App.css';
+import React, { Suspense } from "react";
+import "./App.css";
 import { HashRouter } from "react-router-dom";
 import { Routes, Route } from "react-router";
-import LandingPage from './Final Project/LandingPage';
-import { useState, useEffect } from 'react';
-import CreateAccount from './Final Project/CreateAccount';
-import Home from './Final Project/Home';
+import LandingPage from "./Final Project/LandingPage";
+import { useState, useEffect } from "react";
+import CreateAccount from "./Final Project/CreateAccount";
+import Home from "./Final Project/Home";
+import CreateProfile from "./Final Project/CreateProfile";
+import LoadingScreen from "./Final Project/Utilities/LoadingScreen";
 
 function App() {
   /*
@@ -49,11 +51,14 @@ function App() {
 
   return (
     <HashRouter>
-      <Routes>
-        <Route path="/*" element={<LandingPage />} />
-        <Route path="CreateAccount" element={<CreateAccount />} />
-        <Route path="Home" element={<Home />} />
-      </Routes>
+      <Suspense fallback={<LoadingScreen />}>
+        <Routes>
+          <Route path="/*" element={<LandingPage />} />
+          <Route path="CreateAccount" element={<CreateAccount />} />
+          <Route path="Home" element={<Home />} />
+          <Route path="CreateProfile" element={<CreateProfile />} />
+        </Routes>
+      </Suspense>
     </HashRouter>
   );
 }
