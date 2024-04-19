@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function LoginSidebar() {
     return (
         <>
-            <div className="login-screen-bar " style={{height:"100vh"}}>
+            <div className="login-screen-bar ">
                 <h1 className="login-screen-header text-gradient">welcome back &#129415;</h1>
                 <br />
                 <div className="login-account-form">

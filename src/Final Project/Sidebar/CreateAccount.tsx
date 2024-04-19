@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function CreateAccount() {
     return (
         <>
-            <div className="login-screen-bar" style={{height:"100vh"}}>
+            <div className="login-screen-bar">
                 <div>
                     <h1 className="login-screen-header text-gradient">create an account &#127769;</h1> <br />
                     <form>
