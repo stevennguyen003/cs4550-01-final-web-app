@@ -15,7 +15,7 @@ function CreateProfile() {
       <div className="intro-container">
         <h2
           className="mb-4 typewriter text-gradient"
-          style={{fontFamily: "'Poppins'" }}
+          style={{ fontFamily: "'Poppins'" }}
         >
           Let's Build Your Profile
         </h2>
@@ -27,14 +27,14 @@ function CreateProfile() {
             fontSize: "1.25rem",
             borderRadius: "9999px",
             border: "none",
-            backgroundImage: "linear-gradient(to bottom right, #3b82f6, #a855f7, #db2777)",
+            backgroundImage:
+              "linear-gradient(to bottom right, #3b82f6, #a855f7, #db2777)",
             color: "white",
             textTransform: "uppercase",
             fontWeight: "700",
             cursor: "pointer",
             transition: "background-color 0.2s",
           }}
-  
           className="btn btn-primary btn-next"
         >
           Next
@@ -105,6 +105,7 @@ function CreateProfile() {
                 type="file"
                 className="form-control"
                 id="login-account-picture"
+                accept="image/*"
               />
             </div>
             <div className="form-group">
