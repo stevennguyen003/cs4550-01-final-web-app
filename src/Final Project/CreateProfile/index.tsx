@@ -5,8 +5,8 @@ function CreateProfile() {
         <>
             <div className="create-account-body">
                 <div className="create-account-box">
-                    <h2 className="create-account-header">CREATE YOUR PROFILE &#127769;</h2> <br />
-                    <h3 className="create-account-header">Let's create a profile for you!</h3><br />
+                    <h1 className="create-account-header">create your profile &#127769;</h1> <br />
+                    <h3 className="create-account-header">let's create a profile for you!</h3><br />
                     <form>
                         <div className="form-group">
                             <label htmlFor="login-account-first-name"><b>FIRST NAME*</b></label> <br />
