@@ -5,8 +5,12 @@
 .list-group-item textarea {
     background-color: rgb(40, 40, 40) !important;
     color: white !important;
+    resize: none;
+    max-height: 25dvh;
 }
 
 .list-group-item button {
     color: lightgrey;
+    width: 100%;
+    margin-top: 5px;
 }

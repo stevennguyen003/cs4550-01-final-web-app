@@ -6,7 +6,7 @@ function Home() {
             <div className="home-page-container wd-flex-row-container">
                 <div className="home-page-settings-container">
                     <div className="home-page-settings-pill">
-                        <h1>Settings</h1>
+                        <h1>Profile</h1>
                     </div>
                 </div>
                 <div className="home-page-body-container">
