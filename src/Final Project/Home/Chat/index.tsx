@@ -33,31 +33,25 @@ function Chat() {
     }, []);
 
     return (
-        <div className="chatbox">
-            <ul className="list-group">
+        <div className="chatbox-container">
+            <div className="chatbox-messages">
                 {conversation.map((message, index) => (
-                    <li key={index} className={`list-group-item
-     ${message.role === "user" &&
-                        "list-group-item-primary"}
-     ${message.role === "assistant" &&
-                        "list-group-item-success"}`}>
-                        <strong>{message.role}</strong>:
+                    <div key={index} className={`message
+     ${message.role === "user" ? "user" : "assistant"}`}>
+                        <strong>{message.role}: </strong>
                         {message.content}
-                    </li>
+                    </div>
                 ))}
-                <li className="list-group-item">
-                    <textarea value={message}
-                        onChange={(e) =>
-                            setMessage(e.target.value)}
-                        className="form-control chat-input" />
-                    <button onClick={sendMessage}
-                        className="btn btn-primary">
-                        ask our chatbot!
-                    </button>
-                </li>
-
-            </ul>
-        </div>
+            </div>
+            <textarea value={message}
+                onChange={(e) =>
+                    setMessage(e.target.value)}
+                className="form-control chatbox-input" />
+            <button onClick={sendMessage}
+                className="btn btn-primary chatbox-submit">
+                <b>ask our chatbot!</b>
+            </button>
+        </div >
     )
 }
 export default Chat;
