@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import Home from "./Final Project/Home";
 import LoadingScreen from "./Final Project/Utilities/LoadingScreen";
 import CreateProfile from "./Final Project/Profile/CreateProfile";
+import ProfilePage from "./Final Project/Profile/ProfilePage";
+import SettingsPage from "./Final Project/Settings";
 
 function App() {
   /*
@@ -55,7 +57,9 @@ function App() {
         <Route path="/*" element={<Navigate to="/Main/Login" />} />
           <Route path="Main/:param" element={<LandingPage />} />
           <Route path="Profile/create" element={<CreateProfile />} />
+          <Route path="Profile" element = {<ProfilePage />} />
           <Route path="Home" element={<Home />} />
+          <Route path = "Settings" element = {<SettingsPage />} />
 
         </Routes>
       </Suspense>

@@ -1,0 +1,52 @@
+.settings-container {
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
+.settings-header h1 {
+  color: #3b82f6;
+  background-image: linear-gradient(to right, #6ee7b7, #3b82f6, #9333ea);
+}
+
+.settings-body {
+  margin-top: 20px;
+}
+
+.settings-section h2 {
+  margin-bottom: 15px;
+}
+
+.settings-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 9999px;
+  border: none;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.settings-button.enabled {
+  background-image: linear-gradient(to right, #6ee7b7, #3b82f6);
+}
+
+.settings-button.disabled {
+  background-color: gray;
+}
+
+.settings-footer {
+  margin-top: 20px;
+}
+
+.back-to-profile-button {
+  padding: 10px 20px;
+  border-radius: 9999px;
+  border: none;
+  background-image: linear-gradient(to bottom right, #3b82f6, #a855f7, #db2777);
+  color: white;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+}
