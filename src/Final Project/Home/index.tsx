@@ -1,4 +1,5 @@
 import "./index.css";
+import Chat from "./Chat";
 function Home() {
     return (
         <>
@@ -10,12 +11,14 @@ function Home() {
                 </div>
                 <div className="home-page-body-container">
                     <div className="home-page-body-pill">
-                        <h1>Body</h1>
+                        <h1>Community Posts</h1>
                     </div>
                 </div>
-            </div>
-            <div className="playback-bar-container">
-                <h1>Playback</h1>
+                <div className="home-page-chat-container">
+                    <div className="home-page-chat-pill">
+                        <Chat />
+                    </div>
+                </div>
             </div>
         </>
     )

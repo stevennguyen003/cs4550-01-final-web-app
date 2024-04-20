@@ -1,0 +1,12 @@
+.chatbox {
+    width: 100%;
+}
+
+.list-group-item textarea {
+    background-color: rgb(40, 40, 40) !important;
+    color: white !important;
+}
+
+.list-group-item button {
+    color: lightgrey;
+}

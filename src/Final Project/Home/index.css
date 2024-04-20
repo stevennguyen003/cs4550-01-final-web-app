@@ -1,5 +1,5 @@
 .home-page-container {
-    height: 90vh;
+    height: 100vh;
 }
 
 .wd-flex-row-container {
@@ -25,6 +25,7 @@
     flex-grow: 1;
     padding: 10px;
     padding-left: 5px;
+    padding-right: 5px;
     color: white;
 }
 
@@ -35,10 +36,18 @@
     padding: 10px;
 }
 
-.playback-bar-container {
+.home-page-chat-container {
+    width: 350px;
+    padding: 10px;
+    padding-left: 5px;
+}
+
+.home-page-chat-pill {
+    background-color: rgb(26, 26, 30);
+    height: 100%;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: lightgreen;
-    height: 10vh;
+    align-items: flex-end;
 }
