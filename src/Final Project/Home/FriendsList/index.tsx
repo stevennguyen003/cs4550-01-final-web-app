@@ -5,8 +5,8 @@ function FriendsList() {
         // Replace with complete backend
         <div className="friends-list-container">
             <h1>FriendsList</h1>
-            {friends.map((friend) =>
-                <div>
+            {friends.map((friend, index) =>
+                <div key={index}>
                     <h3>{friend}</h3>
                 </div>
             )}
