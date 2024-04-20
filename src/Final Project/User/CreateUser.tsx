@@ -10,7 +10,7 @@ export default function CreateUser() {
     firstName: "",
     lastName: "",
     email: "",
-    dob: "", // Assuming date of birth is a string in YYYY-MM-DD format
+    dob: "", 
   });
   const navigate = useNavigate();
 
@@ -18,17 +18,15 @@ export default function CreateUser() {
     try {
       const userToCreate = {
         ...newUser,
-        dob: new Date(newUser.dob), // Convert the dob string to a Date object
+        dob: new Date(newUser.dob), 
       };
       await client.createUser(userToCreate);
-      navigate("/profile"); // Redirect the user to their profile or to sign in
+      navigate("/profile");   // change when we have this layout figured
     } catch (err: any) {
       setError(err.response.data.message);
     }
   };
   
-
-  // Update state handlers for each field
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
   };
