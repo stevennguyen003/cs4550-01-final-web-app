@@ -7,7 +7,7 @@ function Profile(): JSX.Element {
     profilePicture: null,
     username: "",
     displayName: "",
-    description: "",
+    bio: "",
     dob: "",
     experience: "",
     yearsOfExperience: 0,
@@ -73,7 +73,7 @@ function Profile(): JSX.Element {
       <div className="profile-details">
         <h1 className="display-name">{profile.displayName}</h1>
         <div className="username">@{profile.username}</div>
-        <div className="description">{profile.description}</div>
+        <div className="description">{profile.bio}</div>
         <div className="details">
           <span className="dob">Born on {profile.dob}</span> <br />
           <span className="experience">
