@@ -19,9 +19,10 @@ function LoginSidebar() {
                             <input type="password" className="form-control" id="login-account-password" />
                         </div>
                         <br />
-                        <Link to="/Home" className="btn btn-primary"><b>continue</b></Link>
+                        <Link to="/Home" className="btn btn-primary"><b>Sign in</b></Link>
                     </form>
-                    <Link to="/Main/CreateAccount">register an account</Link>
+                    <Link to="/Main/CreateAccount">Register an account</Link>
+                    <Link to="/Home">Just visiting?</Link>
                 </div>
             </div>
         </>
