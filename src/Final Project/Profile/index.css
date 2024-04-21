@@ -1,4 +1,4 @@
-body {
+/* body {
   background-color: rgb(11, 11, 14);
   color: lightgrey;
 }
@@ -63,4 +63,94 @@ button {
 
 button:hover {
   background-color: #0056b3;
+} */
+body {
+  background-color: rgb(11, 11, 14);
+  color: lightgrey;
+}
+.profile-container {
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.profile-banner {
+  background: linear-gradient(-45deg, #0ff, #f0f, #08f, #f8f);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.9);
+}
+.profile-picture {
+  background-color: black;
+  
+}
+.profile-picture .profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 1px solid white;
+  margin-top: 20px; /* Adjust based on your needs */
+  margin-left: 8px;
+  margin-top: -56px;
+}
+
+.profile-details {
+  padding: 20px;
+  background: black;
+}
+
+.username, .dob, .experience {
+  color: #555;
+  font-size: 14px;
+}
+
+.display-name {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.description {
+  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.details {
+  margin-top: 20px;
+}
+
+.follower-info {
+  margin-top: 10px;
+}
+
+.follow-button {
+  padding: 5px 10px;
+  background-color: #1DA1F2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.follower-count {
+  margin-left: 10px;
 }

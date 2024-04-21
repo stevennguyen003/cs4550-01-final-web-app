@@ -1,12 +1,53 @@
 import { useState } from "react";
+import * as client from "./client";
 import "./create.css";
 import { Link } from "react-router-dom";
 import "@fontsource/poppins/700.css";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function CreateProfile() {
   const [showIntro, setShowIntro] = useState(true);
   const handleNextIntro = () => {
     setShowIntro(false); // Hide intro and show questions
+  };
+
+  const location = useLocation();
+  const userLogin = location.state as {
+    username: string;
+    password: string;
+    email: string;
+    dob: Date;
+  };
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [bio, setBio] = useState("");
+  const [yearsOfExperience, setYearsOfExperience] = useState(0);
+  const [profilePicture, setProfilePicture] = useState<File | null>(null);
+
+  const handleProfileSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      const user = {
+        username: userLogin.username,
+        password: userLogin.password,
+        email: userLogin.email,
+        dob: userLogin.dob,
+        firstName,
+        lastName,
+        displayName,
+        bio,
+        yearsOfExperience,
+      };
+      const response = await client.createUser(user); // Assume returns user with ID
+      if (profilePicture) {
+        await client.uploadProfilePicture(response._id, profilePicture);
+      }
+      navigate("/Home"); // Redirect to home on success
+    } catch (error) {
+      console.error("Failed to create profile:", error);
+    }
   };
 
   if (showIntro) {
@@ -53,7 +94,7 @@ function CreateProfile() {
             let's create a profile for you!
           </h3>
           <br />
-          <form>
+          <form onSubmit={handleProfileSubmit}>
             <div className="form-group">
               <label htmlFor="login-account-first-name">
                 <b>
@@ -65,6 +106,8 @@ function CreateProfile() {
                 type="text"
                 className="form-control"
                 id="login-account-first-name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -78,6 +121,8 @@ function CreateProfile() {
                 type="text"
                 className="form-control"
                 id="login-account-last-name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -91,14 +136,14 @@ function CreateProfile() {
                 type="text"
                 className="form-control"
                 id="login-account-display-name"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
               />
             </div>
 
             <div className="form-group">
               <label htmlFor="login-account-picture">
-                <b>
-                  PROFILE PICTURE <span className="asterick">*</span>
-                </b>
+                <b>PROFILE PICTURE</b>
               </label>
               <br />
               <input
@@ -106,6 +151,13 @@ function CreateProfile() {
                 className="form-control"
                 id="login-account-picture"
                 accept="image/*"
+                onChange={(e) => {
+                  setProfilePicture(
+                    e.target.files && e.target.files[0]
+                      ? e.target.files[0]
+                      : null
+                  );
+                }}
               />
             </div>
             <div className="form-group">
@@ -117,6 +169,8 @@ function CreateProfile() {
                 type="text"
                 className="form-control"
                 id="login-account-description"
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -131,12 +185,15 @@ function CreateProfile() {
                 type="number"
                 className="form-control"
                 id="login-account-level"
+                value={yearsOfExperience}
+                defaultValue={0}
+                onChange={(e) => setYearsOfExperience(Number(e.target.value))}
               />
             </div>
             <br />
-            <Link to="/Home" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary">
               <b>CREATE PROFILE</b>
-            </Link>
+            </button>
             <br />
             <Link to="/">Already have an account?</Link>
             <br />
