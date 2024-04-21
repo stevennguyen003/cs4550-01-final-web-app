@@ -12,6 +12,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    height: 3rem;
+    margin-bottom: 5px;
 }
 
 .home-page-body-header a {
@@ -53,6 +55,15 @@
     flex-direction: column;
 }
 
+.home-page-body-search {
+    background-color: rgb(26, 26, 30) !important;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    border-color: lightgrey;
+    color: white !important;
+}
+
 .home-page-body-posts {
     flex-grow: 1;
 }
@@ -77,19 +88,19 @@
 ::-webkit-scrollbar {
     width: 10px;
 }
-  
+
 /* Track */
 ::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.25);
     border-radius: 10px;
 }
-  
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.25);
     border-radius: 10px;
 }
-  
+
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.50);

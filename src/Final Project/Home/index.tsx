@@ -1,8 +1,9 @@
 import "./index.css";
 import FriendsList from "./FriendsList";
-import { Link } from "react-router-dom";
+import { Link, Routes, Route } from "react-router-dom";
 import Chat from "./Chat";
-import CommunityPosts from "./Posts";
+import Posts from "./Posts";
+import Exercises from "./Exercises";
 function Home() {
     return (
         <>
@@ -16,14 +17,15 @@ function Home() {
                 <div className="home-page-body-container">
                     <div className="home-page-body-pill">
                         <div className="home-page-body-header">
-                            <Link to="/"><h3>FRIENDS</h3></Link>
-                            <Link to="/"><h3>FOR YOU</h3></Link>
+                            <Link to="/Home/Community"><h3>COMMUNITY</h3></Link>
+                            <Link to="/Home/Exercises"><h3>EXERCISES</h3></Link>
+                            <textarea className="form-control home-page-body-search"></textarea>
                         </div>
-                        <CommunityPosts />
+                        <Routes>
+                            <Route path="/Community" element={<Posts/>} />
+                            <Route path="/Exercises" element={<Exercises/>} />
+                        </Routes>
                         <div className="home-page-body-posts">
-                        </div>
-                        <div className="condensed-chatlog d-block d-xl-none">
-                            <h1>ChatLog</h1>
                         </div>
                     </div>
                 </div>
