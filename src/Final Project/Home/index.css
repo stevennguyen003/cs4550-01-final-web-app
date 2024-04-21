@@ -7,6 +7,19 @@
     flex-direction: row;
 }
 
+.home-page-body-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-page-body-header a {
+    text-decoration: none;
+    color: white;
+    margin-right: 1rem;
+}
+
 .home-page-users-container {
     width: 350px;
     padding: 10px;
@@ -36,6 +49,12 @@
     height: 100%;
     border-radius: 5px;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-page-body-posts {
+    flex-grow: 1;
 }
 
 .home-page-chat-container {
@@ -52,4 +71,31 @@
     color: white;
     display: flex;
     align-items: flex-end;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.50);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.25) rgba(0, 0, 0, 0.25);
 }
