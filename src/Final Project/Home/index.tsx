@@ -1,7 +1,9 @@
 import "./index.css";
 import FriendsList from "./FriendsList";
+import { Link } from "react-router-dom";
 import Chat from "./Chat";
 import CommentSection from "./Feed/Comment";
+import CommunityPosts from "./Feed/Posts";
 function Home() {
     return (
         <>
@@ -14,11 +16,19 @@ function Home() {
                 </div>
                 <div className="home-page-body-container">
                     <div className="home-page-body-pill">
-                        <h1>Community Posts</h1>
-                        <CommentSection />
+                        <div className="home-page-body-header">
+                            <Link to="/"><h3>FRIENDS</h3></Link>
+                            <Link to="/"><h3>FOR YOU</h3></Link>
+                        </div>
+                        <CommunityPosts />
+                        <div className="home-page-body-posts">
+                        </div>
+                        <div className="condensed-chatlog d-block d-xl-none">
+                            <h1>ChatLog</h1>
+                        </div>
                     </div>
                 </div>
-                <div className="home-page-chat-container">
+                <div className="home-page-chat-container d-none d-xl-block">
                     <div className="home-page-chat-pill">
                         <Chat />
                     </div>
