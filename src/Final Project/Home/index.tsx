@@ -3,7 +3,7 @@ import FriendsList from "./FriendsList";
 import { Link } from "react-router-dom";
 import Chat from "./Chat";
 import CommentSection from "./Feed/Comment";
-import CommunityPosts from "./Feed/Posts";
+import Feed from "./Feed/";
 function Home() {
     return (
         <>
@@ -20,7 +20,7 @@ function Home() {
                             <Link to="/"><h3>FRIENDS</h3></Link>
                             <Link to="/"><h3>FOR YOU</h3></Link>
                         </div>
-                        <CommunityPosts />
+                        <Feed />
                         <div className="home-page-body-posts">
                         </div>
                         <div className="condensed-chatlog d-block d-xl-none">

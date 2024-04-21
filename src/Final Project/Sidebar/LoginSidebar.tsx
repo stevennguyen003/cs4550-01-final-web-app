@@ -21,7 +21,7 @@ function LoginSidebar() {
                         <br />
                         <Link to="/Home" className="btn btn-primary"><b>Sign in</b></Link>
                     </form>
-                    <Link to="/Main/CreateAccount">Register an account</Link>
+                    <Link to="/Main/CreateAccount">Register an account</Link> <br />
                     <Link to="/Home">Just visiting?</Link>
                 </div>
             </div>
