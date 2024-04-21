@@ -1,19 +1,20 @@
-import React from 'react';
-import { signOutUser } from './client';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import * as client from "./client";
 
-const SignOutButton: React.FC = () => {
-  const handleSignOut = async () => {
+export default function SignOutButton() {
+  const navigate = useNavigate();
+
+  const signOut = async () => {
     try {
-      await signOutUser();
-      console.log('Sign out successful');
-    } catch (err) {
-      console.error('Error signing out', err);
+      await client.signOutUser();
+      navigate("/"); // change when we figure this out
+    } catch (err: any) {
+      console.error(err.response.data.message);
     }
   };
 
   return (
-    <button onClick={handleSignOut}>Sign Out</button>
+    <button onClick={signOut}>Sign Out</button>
   );
-};
-
-export default SignOutButton;
+}

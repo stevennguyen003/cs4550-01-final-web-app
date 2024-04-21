@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-interface User {
+export interface User {
   _id?: string;
   username: string;
   password?: string; 

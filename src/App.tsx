@@ -6,7 +6,7 @@ import LandingPage from "./Final Project/LandingPage";
 import { useState, useEffect } from "react";
 import Home from "./Final Project/Home";
 import LoadingScreen from "./Final Project/Utilities/LoadingScreen";
-import CreateProfile from "./Final Project/Profile/CreateProfile";
+import CreateProfile from "./Final Project/Profile/CreateProfile"; // the other create profile
 import ProfilePage from "./Final Project/Profile/ProfilePage";
 import SettingsPage from "./Final Project/Settings";
 

@@ -1,34 +1,46 @@
-import React from "react";
-import "./index.css"; 
+import React, { useState, useEffect } from "react";
+import "./index.css";
 import { Link } from "react-router-dom";
-import "@fontsource/poppins/700.css"; 
-
-const userProfile = {
-  firstName: "Jane",
-  lastName: "Doe",
-  displayName: "JaneD",
-  profilePicture: "path/to/image.jpg", 
-  bio: "Fitness enthusiast, love to share my journey and inspire others.",
-  yearsOfExperience: 5,
-};
+import "@fontsource/poppins/700.css";
+import { fetchUserProfile, User } from '../User/client'; 
 
 function ProfilePage() {
-  const { firstName, lastName, displayName, profilePicture, bio, yearsOfExperience } = userProfile;
+  const [userProfile, setUserProfile] = useState<User | null>(null);
+
+  useEffect(() => {
+    const loadUserProfile = async () => {
+      try {
+        const userId = "exampleUserId"; // we need new instanve every time 
+        const profileData = await fetchUserProfile(userId);
+        setUserProfile(profileData);
+      } catch (error) {
+        console.error("Failed to fetch user profile:", error);
+      }
+    };
+
+    loadUserProfile();
+  }, []);
+
+  if (!userProfile) {
+    return <div>Loading...</div>; 
+  }
+
+  const displayNameToShow = userProfile.username || `${userProfile.firstName} ${userProfile.lastName}`;
+  const bioToShow = userProfile.bio || "This user has not yet set up a bio.";
+  const profilePictureToShow = userProfile.profilePicture || "defaultProfilePic.png";
 
   return (
     <div className="profile-page-container">
       <div className="profile-header text-gradient" style={{ fontFamily: "'Poppins'", padding: "20px", textAlign: "center" }}>
         <img
-          src={profilePicture || "defaultProfilePic.png"} 
+          src={profilePictureToShow} 
           alt="Profile"
           style={{ width: "150px", height: "150px", borderRadius: "50%", border: "4px solid white", marginBottom: "20px" }}
         />
-        <h1>{displayName || `${firstName} ${lastName}`}</h1> 
-        <p>{bio || "This user has not yet set up a bio."}</p>
+        <h1>{displayNameToShow}</h1>
+        <p>{bioToShow}</p>
       </div>
       <div className="profile-body" style={{ padding: "20px" }}>
-        <h2>Details</h2>
-        <p><strong>Years of Experience in the Gym:</strong> {yearsOfExperience}</p>
       </div>
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         <Link to="/editProfile" className="btn btn-primary" style={{

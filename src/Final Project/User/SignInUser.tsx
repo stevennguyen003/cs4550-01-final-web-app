@@ -10,7 +10,7 @@ export default function SignIn() {
   const signIn = async () => {
     try {
       await client.signInUser(user.username, user.password);
-      navigate("/profile"); // Adjust the route as necessary
+      navigate("/profile"); // we change when we have this layout figured
     } catch (err: any) {
       setError(err.response.data.message);
     }
