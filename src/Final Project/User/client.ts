@@ -2,21 +2,24 @@ import axios from 'axios';
 
 export interface User {
   _id?: string;
-  username: string;
+  username: string; 
   password?: string; 
   firstName: string;
   lastName: string;
   email: string;
   dob: Date; 
-  profilePicture?: string;
-  bio?: string;
-  phoneNumber?: string;
-  followers?: string[];
-  following?: string[];
+  profilePicture?: string; 
+  bio?: string; 
+  phoneNumber?: string; 
+  role: "USER" | "VISITOR"; 
+  following?: string[]; 
+  favorites?: string[]; 
+  comments?: string[]; 
+  reviews?: string[]; 
 }
 
 const API = axios.create({
-  baseURL: 'http://localhost:4000/api',  // change to render later keep local for now
+  baseURL: 'http://localhost:4000/api', // Change to match your actual API base URL
 });
 
 export const createUser = async (userData: User) => {

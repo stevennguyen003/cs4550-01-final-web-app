@@ -24,10 +24,11 @@ function CreateAccount() {
         try {
             const response = await createUser({
                 ...formData,
-                dob: new Date(formData.dob), // check node to see if need to convert to date
+                dob: new Date(formData.dob),
+                role: 'USER'
             });
             console.log('User created:', response);
-            navigate('/profile'); // Adjust the route as necessary
+            navigate('/profile'); 
         } catch (err) {
             setError('Failed to create account. Please try again.');
             console.error(err);
