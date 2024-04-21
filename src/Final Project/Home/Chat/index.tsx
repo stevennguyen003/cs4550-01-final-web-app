@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ContentEditable from 'react-contenteditable'
+
 import "./index.css";
 import * as client from "./client";
 

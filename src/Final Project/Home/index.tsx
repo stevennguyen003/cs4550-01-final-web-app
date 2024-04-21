@@ -1,6 +1,7 @@
 import "./index.css";
 import FriendsList from "./FriendsList";
 import Chat from "./Chat";
+import CommentSection from "./Feed/Comment";
 function Home() {
     return (
         <>
@@ -14,6 +15,7 @@ function Home() {
                 <div className="home-page-body-container">
                     <div className="home-page-body-pill">
                         <h1>Community Posts</h1>
+                        <CommentSection />
                     </div>
                 </div>
                 <div className="home-page-chat-container">
