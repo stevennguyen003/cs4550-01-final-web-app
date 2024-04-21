@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./index.css";
+import "./create.css";
 import { Link } from "react-router-dom";
 import "@fontsource/poppins/700.css";
 

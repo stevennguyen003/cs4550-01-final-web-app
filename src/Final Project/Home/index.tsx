@@ -10,7 +10,9 @@ function Home() {
             <div className="home-page-container wd-flex-row-container">
                 <div className="home-page-users-container">
                     <div className="home-page-users-pill">
-                        <h1>Profile and Friends List</h1>
+                        
+                            <Link to='/Profile/id'>Profile</Link>
+                        <h1>Friends List</h1>
                         <FriendsList />
                     </div>
                 </div>
