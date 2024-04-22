@@ -2,15 +2,17 @@ import "./index.css";
 import FriendsList from "./FriendsList";
 import { Link, Routes, Route } from "react-router-dom";
 import Chat from "./Chat";
-import Posts from "./Posts";
-import Exercises from "./Exercises";
+import CommentSection from "./Feed/Comment";
+import Feed from "./Feed/";
 function Home() {
     return (
         <>
             <div className="home-page-container wd-flex-row-container">
                 <div className="home-page-users-container">
                     <div className="home-page-users-pill">
-                        <h1>Profile and Friends List</h1>
+                        
+                            <Link to='/Profile/id'>Profile</Link>
+                        <h1>Friends List</h1>
                         <FriendsList />
                     </div>
                 </div>
@@ -21,10 +23,7 @@ function Home() {
                             <Link to="/Home/Exercises"><h3>EXERCISES</h3></Link>
                             <textarea className="form-control home-page-body-search"></textarea>
                         </div>
-                        <Routes>
-                            <Route path="/Community" element={<Posts/>} />
-                            <Route path="/Exercises" element={<Exercises/>} />
-                        </Routes>
+                        <Feed />
                         <div className="home-page-body-posts">
                         </div>
                     </div>
