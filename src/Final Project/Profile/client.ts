@@ -1,5 +1,6 @@
 import axios from "axios";
 import { response } from "express";
+
 export const BASE_API = process.env.REACT_APP_BACKEND_URL;
 console.log(`Base API URL: ${BASE_API}`);
 export const USERS_API = `${BASE_API}/api/users`;
