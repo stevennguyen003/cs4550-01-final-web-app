@@ -1,7 +1,14 @@
 .community-posts-container {
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
   height: 100%;
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  -webkit-scrollbar: none; /* For Chrome, Safari, and Opera */
+  overflow-x: hidden;  /* Prevents horizontal overflow */
+    overflow-y: auto;
 }
+
 .post {
   border-image: linear-gradient(to bottom right, #c084fc, #db2777) 1;
   background-image: linear-gradient(to bottom right, #c084fc, #db2777) 1;
@@ -18,6 +25,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   border-radius: 10px;
+  
 }
 
 .post h1 {
@@ -48,7 +56,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid black;
+  border: 1px solid transparent;
   /* border-radius: 10px; */
   padding: 1px;
   margin-bottom: 10px;
@@ -64,13 +72,13 @@ a {
   font-size: var(--text-sm);
   border: 0;
   white-space: initial;
-  border: 1px solid black;
+  border: 1px solid transparent;
 }
 
 .post-image {
-  width: 30px;
-  height: 30px;
-  border-radius: 25px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   object-fit: cover;
 }
 
@@ -162,25 +170,36 @@ a {
 }
 
 .post-button {
-  background-color: #28a745;
   color: #fff;
-  border: none;
-  border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
+  border-radius: 9999px;
+  border: none;
+  background-image: linear-gradient(to bottom right, #3b82f6, #a855f7, #db2777);
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
-
+.post-button:disabled {
+    background-color: #bed3ff;
+    cursor: not-allowed;
+  }
+  
+.post-button:disabled:hover {
+  background-color: #bed3ff;
+}
 .attach-icon {
   font-size: 20px;
   cursor: pointer;
 }
 .attached-message {
-    font-size: 17px;
-    font-weight: bold;
-    color: #333;
-    margin-top: 5px;
-    margin-left: 300px;
-  }
+  font-size: 17px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 5px;
+  margin-left: 300px;
+}
 .post-image-container {
   margin-top: 10px;
   display: flex;
@@ -188,7 +207,7 @@ a {
   align-items: center; /* Center the image vertically */
   height: auto; /* Automatically adjust height */
   margin-top: 10px;
-  
+
   aspect-ratio: 16 / 20; /* Set the aspect ratio to 16:9 */
 }
 
@@ -196,4 +215,14 @@ a {
   max-width: 100%;
   max-height: 100%; /* Adjust as needed */
   object-fit: cover; /* Cover the container */
+}
+
+.end-feed-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+.end-feed-container p {
+  font-style: italic;
 }

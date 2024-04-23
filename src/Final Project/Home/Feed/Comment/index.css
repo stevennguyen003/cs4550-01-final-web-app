@@ -1,0 +1,126 @@
+.comment-section {
+  margin-top: 20px;
+  align-items: flex-start;
+}
+.comment {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    background-color: transparent;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.comment-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    word-break: break-all;
+}
+
+.comment-author {
+    font-weight: bold;
+    margin: 0;
+}
+
+.comment-text {
+    margin: 1px 0;
+    overflow-wrap: break-all;
+    font: 0px;
+    overflow: hidden;
+}
+
+.comment-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    
+}
+
+.comment-date {
+    
+    color: white;
+}
+
+.comment-likes {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;;
+    margin: auto;
+}
+
+.heart-icon {
+    color: #e3342f; /* A red color for the heart icon */
+    margin-right: 5px;
+}
+.comment-edit {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.user-profile-picture {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.comment-form {
+    display: flex;
+    flex-grow: 1;
+}
+
+.comment-box {
+  flex-grow: 1;
+  height: 35px;
+  background-color: #f0f2f5;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  font-size: 14px;
+  flex-grow: 1;
+}
+
+.comment-submit {
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 10px;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 9999px;
+  border: none;
+  background-image: linear-gradient(to bottom right, #3b82f6, #a855f7, #db2777);
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.comment-submit:hover {
+  background-color: #166fe5;
+}
+
+.comment-submit:disabled {
+  background-color: #bed3ff;
+  cursor: not-allowed;
+}
+
+.comment-submit:disabled:hover {
+  background-color: #bed3ff;
+}

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaEllipsisV } from "react-icons/fa";
+import { FaComment, FaEllipsisV, FaTimes } from "react-icons/fa";
 import { Suspense, useEffect, useState } from "react";
 import LoadingEffect from "../../Utilities/LoadingEffect";
 import {
@@ -14,6 +14,7 @@ import axios from "axios";
 import * as client from "./client";
 import * as userClient from "../../Profile/client";
 import "./index.css";
+import CommentSection from "./Comment";
 const BASE_API = process.env.REACT_APP_BACKEND_URL;
 
 function Feed() {
@@ -27,7 +28,7 @@ function Feed() {
   //     comments: [],
   // });
   const defaultProfilePicUrl = "../images/default.jpeg";
-  const [newPostContent, setNewPostContent] = useState<string>(" ");
+  const [newPostContent, setNewPostContent] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [posts, setPosts] = useState<client.Post[]>([]);
   const [postProfiles, setPostProfiles] = useState<{
@@ -39,7 +40,9 @@ function Feed() {
     _id: "",
     username: "",
   });
-
+  const [visibleCommentPostId, setVisibleCommentPostId] = useState<
+    string | null
+  >(null);
   const [comment, setComment] = useState("");
   const onComment = () => {
     setComment("");
@@ -62,8 +65,8 @@ function Feed() {
       });
       if (selectedImage) {
         await client.uploadImage(newPost._id, selectedImage);
-        console.log("Image uploaded successfully");
-  
+        //console.log("Image uploaded successfully");
+
         // Update the post with the image URL
         const updatedPost = await client.findPostById(newPost._id);
         if (updatedPost) {
@@ -85,7 +88,10 @@ function Feed() {
       console.error("Error creating post:", error);
     }
   };
-
+  const toggleCommentSection = (postId: string) => {
+    // If the clicked post's comment section is already visible, hide it, otherwise show it.
+    setVisibleCommentPostId(visibleCommentPostId === postId ? null : postId);
+  };
   const onLike = async (post: client.Post) => {
     profile._id = profile._id.toString();
     try {
@@ -112,28 +118,28 @@ function Feed() {
     }
   };
 
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await client.findAllPosts();
-        console.log("POSTS:", response);
-        setPosts(response);
-        const profiles: { [key: string]: userClient.User } = {}; // Explicitly define the type of profiles
-        for (const post of response) {
-          try {
-            const authorProfile = await userClient.findUserById(post.author);
-            profiles[post._id] = authorProfile;
-            console.log("Author Profile:", profiles[post._id].username);
-          } catch (error) {
-            console.error("Error fetching post author:", error);
-          }
+  async function fetchPosts() {
+    try {
+      const response = await client.findAllPosts();
+      //console.log("POSTS:", response);
+      setPosts(response);
+      const profiles: { [key: string]: userClient.User } = {}; // Explicitly define the type of profiles
+      for (const post of response) {
+        try {
+          const authorProfile = await userClient.findUserById(post.author);
+          profiles[post._id] = authorProfile;
+          console.log("Author Profile:", profiles[post._id].username);
+        } catch (error) {
+          console.error("Error fetching post author:", error);
         }
-        console.log("Profiles:", profiles);
-        setPostProfiles(profiles);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
       }
+      //console.log("Profiles:", profiles);
+      setPostProfiles(profiles);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
     }
+  }
+  useEffect(() => {
     fetchPosts();
   }, []);
 
@@ -156,7 +162,7 @@ function Feed() {
             ...response,
             profilePicture: correctedUrl,
           });
-          console.log("Profile Picture: ", correctedUrl);
+          //console.log("Profile Picture: ", correctedUrl);
         }
       } catch (error) {
         console.error("Failed to fetch profile:", error);
@@ -173,6 +179,14 @@ function Feed() {
       fileInput.click();
     }
   };
+  const handleNewCommentAdded = () => {
+    fetchPosts(); // This will re-fetch all the posts and comments
+  };
+
+  const onRemoveImage = () => {
+    setSelectedImage(null);
+  };
+
   return (
     <div className="community-posts-container">
       <h1>Community Posts</h1>
@@ -186,7 +200,7 @@ function Feed() {
           />
         </div>
         <textarea
-          placeholder="What's on your mind?"
+          placeholder="What's on your mind? Show off your gym progress!"
           value={newPostContent}
           onChange={handlePostContentChange}
           className="post-textarea"
@@ -208,24 +222,21 @@ function Feed() {
         />
         <button
           onClick={handlePostSubmit}
-          style={{
-            borderRadius: "9999px",
-            border: "none",
-            backgroundImage:
-              "linear-gradient(to bottom right, #3b82f6, #a855f7, #db2777)",
-            color: "white",
-            textTransform: "uppercase",
-            fontWeight: "700",
-            cursor: "pointer",
-            transition: "background-color 0.2s",
-          }}
           className="post-button"
+          disabled={newPostContent.trim() === "" && selectedImage === null}
         >
           Post
         </button>
-        
       </div>
-      {selectedImage && <span className="attached-message text-gradient">Image attached</span>}
+      {selectedImage && (
+        <>
+          <span className="attached-message text-gradient">Image attached</span>
+          <span onClick={onRemoveImage}>
+            {" "}
+            <FaTimes style={{ marginLeft: "15px", color: "pink" }} />{" "}
+          </span>
+        </>
+      )}
 
       {posts.map((post) => (
         <div key={post._id} className="post">
@@ -253,7 +264,17 @@ function Feed() {
               </Link>
               {post.date && (
                 <p className="post-date">
-                  {new Date(post.date).toISOString().slice(0, 10)}
+                  {new Date(post.date).toLocaleDateString([], {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                  {", "}
+                  {new Date(post.date).toLocaleTimeString([], {
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
                 </p>
               )}
               {isEditable && <FaEllipsisV className="ms-auto" color="white" />}
@@ -264,13 +285,12 @@ function Feed() {
               <p>{post.content}</p>
               {post.image && (
                 <div className="post-image-container">
-                <img
-                  src={`${BASE_API}/${post.image}`.replace(/\\/g, "/")}
-                  alt=""
-                  className="post-image-content"
-                />
-              </div>
-                
+                  <img
+                    src={`${BASE_API}/${post.image}`.replace(/\\/g, "/")}
+                    alt=""
+                    className="post-image-content"
+                  />
+                </div>
               )}
             </div>
           </Suspense>
@@ -286,16 +306,26 @@ function Feed() {
                 {post.likes ? post.likes.length : 0}
               </span>
             </span>
-            <span onClick={onComment}>
-              <FaRegComment />
+            <span onClick={() => toggleCommentSection(post._id)}>
+              {visibleCommentPostId !== post._id ? <FaRegComment /> : <FaComment/>}
               <span className="stat">
                 {" "}
                 {post.comments ? post.comments.length : 0}
               </span>
             </span>
           </div>
+          {(visibleCommentPostId === post._id || post.comments.length === 0) && (
+            <CommentSection
+              postId={post._id}
+              onNewCommentAdded={handleNewCommentAdded}
+            />
+          )}
         </div>
       ))}
+      <br />
+      <div className="end-feed-container">
+        <p className="text-gradient">---- end of feed ----</p>
+      </div>
     </div>
   );
 }
