@@ -35,7 +35,6 @@ function CreateProfile() {
                         <br />
                         <Link to="/Home" className="btn btn-primary"><b>CREATE PROFILE</b></Link>
                         <Link to="/">Already have an account?</Link>
-                        <br /><br /><br />
                     </form>
                 </div>
             </div>

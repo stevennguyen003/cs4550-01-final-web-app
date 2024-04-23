@@ -7,11 +7,13 @@ interface Message {
     role: string;
     content: string;
 }
+enum Screen { Chat, Exercises };
 
 function Chat() {
     const [conversation, setConversation] =
         useState<Message[]>([]);
     const [message, setMessage] = useState<string>("");
+    const [chatScreen, setChatScreen] = useState(Screen.Chat);
     const sendMessage = async () => {
         const userMessage = {
             role: "user", content: message
@@ -46,6 +48,11 @@ function Chat() {
             <textarea value={message}
                 onChange={(e) =>
                     setMessage(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        sendMessage();
+                    }
+                }}
                 className="form-control chatbox-input" />
             <button onClick={sendMessage}
                 className="btn btn-primary chatbox-submit">

@@ -11,7 +11,7 @@ function FriendsList() {
         // Replace with complete backend
         <div className="friends-list-container">
             {friends.map((friend, index) =>
-                <Link to="Profile/1">
+                <Link to={`/Profile/${index}`}>
                     <div key={index} className="friend">
                         <FaUser className="fs-2" />
                         <div className="friend-display-name">
