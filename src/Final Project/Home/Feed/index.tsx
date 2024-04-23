@@ -21,7 +21,7 @@ function Feed() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [updatedImage, setUpdatedImage] = useState<File | null>(null);
   const [currentEditingPost, setCurrentEditingPost] =
-    useState<client.Post | null>(null);
+    useState<client.Post | null >(null);
   const defaultProfilePicUrl = "../images/default.jpeg";
   const [newPostContent, setNewPostContent] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -39,8 +39,9 @@ function Feed() {
     string | null
   >(null);
   const [comment, setComment] = useState("");
-  const openEditModal = (post: client.Post) => {
-    setCurrentEditingPost(post);
+  const openEditModal = async (postId: string) => {
+    const response = await client.findPostById(postId);
+    setCurrentEditingPost(response);
     setIsEditModalOpen(true);
   };
 
@@ -206,6 +207,15 @@ function Feed() {
   const onRemoveImage = () => {
     setSelectedImage(null);
   };
+  const handleDeletePost = async (postId: any) => {
+    try {
+      const response = await client.deletePost(postId);
+      console.log('Delete response:', response);
+      setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  }
 
   return (
     <div className="community-posts-container">
@@ -304,7 +314,7 @@ function Feed() {
                 <FaEllipsisV
                   className="ms-auto"
                   color="white"
-                  onClick={() => openEditModal(post)}
+                  onClick={() => openEditModal(post._id)}
                 />
               )}
               {isEditModalOpen && (
@@ -333,13 +343,13 @@ function Feed() {
                       />
                     </div>
                     <div>
-                      {updatedImage || currentEditingPost?.image !== "" ? (
+                      {(updatedImage || (currentEditingPost?.image && currentEditingPost?.image !== "")) ? (
                         <>
                           <button
                             className="modal-button text-gradient"
                             style={{marginLeft: "-10px"}}
                             onClick={() =>
-                                {
+                                {console.log(currentEditingPost);
                                 setUpdatedImage(null);
                               setCurrentEditingPost({
                                 ...currentEditingPost!,
@@ -394,7 +404,9 @@ function Feed() {
                       >
                         Cancel
                       </button>
-                      <button className="modal-button delete">
+                      <button className="modal-button delete" onClick={() => {handleDeletePost(post._id); 
+                        closeEditModal();
+                        setUpdatedImage(null) }}>
                         Delete Post
                       </button>
                     </div>
