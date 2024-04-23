@@ -251,7 +251,7 @@ function Feed() {
           style={{ display: "none" }}
         />
         <button
-          onClick={handlePostSubmit}
+          onClick={() => {setSelectedImage(null); handlePostSubmit();}}
           className="post-button"
           disabled={newPostContent.trim() === "" && selectedImage === null}
         >
@@ -349,7 +349,7 @@ function Feed() {
                             className="modal-button text-gradient"
                             style={{marginLeft: "-10px"}}
                             onClick={() =>
-                                {console.log(currentEditingPost);
+                                {
                                 setUpdatedImage(null);
                               setCurrentEditingPost({
                                 ...currentEditingPost!,
@@ -404,7 +404,7 @@ function Feed() {
                       >
                         Cancel
                       </button>
-                      <button className="modal-button delete" onClick={() => {handleDeletePost(post._id); 
+                      <button className="modal-button delete" onClick={() => {handleDeletePost(currentEditingPost?._id); 
                         closeEditModal();
                         setUpdatedImage(null) }}>
                         Delete Post
