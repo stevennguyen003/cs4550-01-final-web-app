@@ -259,7 +259,7 @@ function Feed() {
               </Link>
               <Link to={`/Home/profile/${post.author}`}>
                 {postProfiles[post._id] && postProfiles[post._id].username && (
-                  <p>{"@" + postProfiles[post._id].username}</p>
+                  <p style={{fontWeight:"bold"}}>{"@" + postProfiles[post._id].username}</p>
                 )}
               </Link>
               {post.date && (
