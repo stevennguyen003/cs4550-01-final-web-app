@@ -5,8 +5,9 @@
   height: 100%;
   -ms-overflow-style: none; /* For Internet Explorer and Edge */
   -webkit-scrollbar: none; /* For Chrome, Safari, and Opera */
-  overflow-x: hidden;  /* Prevents horizontal overflow */
-    overflow-y: auto;
+  overflow-x: hidden; /* Prevents horizontal overflow */
+  overflow-y: auto;
+  z-index: 10;
 }
 
 .post {
@@ -25,7 +26,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   border-radius: 10px;
-  
 }
 
 .post h1 {
@@ -182,10 +182,10 @@ a {
   transition: background-color 0.2s;
 }
 .post-button:disabled {
-    background-color: #bed3ff;
-    cursor: not-allowed;
-  }
-  
+  background-color: #bed3ff;
+  cursor: not-allowed;
+}
+
 .post-button:disabled:hover {
   background-color: #bed3ff;
 }
@@ -225,4 +225,82 @@ a {
 }
 .end-feed-container p {
   font-style: italic;
+}
+.modal-overlay {
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 11110;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background: #20232a;
+  padding: 20px;
+  border-radius: 15px;
+  width: 500px; 
+  z-index: 111110;
+  margin: 20px;
+}
+@media (max-width: 600px) {
+    .modal-overlay {
+    background-color: black;
+    }
+    .modal-content {
+        background-color: black;
+      width: 95%; 
+      height:70%;
+      padding: 10px; 
+      font-size: 10px;
+      margin: 10px; 
+    }
+    .modal-textarea {
+      height: 10px; 
+      width: 10px;
+    }
+  }
+
+.modal-textarea {
+  width: 100%;
+  height: 150px; /* Adjust height as needed */
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  color: white;
+  background: #181a1f; /* Dark background for textarea */
+}
+
+.modal-buttons {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+
+.modal-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-button.update {
+  background-color: #5865f2; /* Blue color for update */
+}
+
+.modal-button.cancel {
+  background-color: #42464d; /* Grey color for cancel */
+}
+
+.modal-button.delete {
+  background-color: #ed4245; /* Red color for delete */
 }

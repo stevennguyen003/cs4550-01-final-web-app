@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { FaComment, FaEllipsisV, FaTimes } from "react-icons/fa";
-import { Suspense, useEffect, useState } from "react";
+import { FaComment, FaEllipsisV, FaFile, FaTimes } from "react-icons/fa";
+import { SetStateAction, Suspense, useEffect, useState } from "react";
 import LoadingEffect from "../../Utilities/LoadingEffect";
 import {
   FaHeart,
@@ -18,15 +18,10 @@ import CommentSection from "./Comment";
 const BASE_API = process.env.REACT_APP_BACKEND_URL;
 
 function Feed() {
-  //   const [post, setPost] = useState({
-  //     _id: "",
-  //     content: "",
-  //     image: "",
-  //     author: "",
-  //     date: "",
-  //     likes: [],
-  //     comments: [],
-  // });
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [updatedImage, setUpdatedImage] = useState<File | null>(null);
+  const [currentEditingPost, setCurrentEditingPost] =
+    useState<client.Post | null>(null);
   const defaultProfilePicUrl = "../images/default.jpeg";
   const [newPostContent, setNewPostContent] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -34,19 +29,44 @@ function Feed() {
   const [postProfiles, setPostProfiles] = useState<{
     [key: string]: userClient.User;
   }>({});
-  const isEditable = true;
   const [profile, setProfile] = useState({
     profilePicture: null,
     _id: "",
     username: "",
+    role: "USER",
   });
   const [visibleCommentPostId, setVisibleCommentPostId] = useState<
     string | null
   >(null);
   const [comment, setComment] = useState("");
-  const onComment = () => {
-    setComment("");
+  const openEditModal = (post: client.Post) => {
+    setCurrentEditingPost(post);
+    setIsEditModalOpen(true);
   };
+
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+    setCurrentEditingPost(null);
+  };
+
+  const handleUpdatePost = async (updatePost: client.Post) => {
+    try {
+      await client.updatePost(updatePost._id, updatePost);
+      if (updatedImage) {
+        await client.uploadImage(updatePost._id, updatedImage!);
+        setUpdatedImage(null);
+      }
+
+      setPosts((prevPosts) =>
+        prevPosts.map((p) => (p._id === updatePost._id ? updatePost : p))
+      );
+      fetchPosts();
+      closeEditModal();
+    } catch (error) {
+      console.error("Failed to update the post:", error);
+    }
+  };
+
   const handlePostContentChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -259,7 +279,9 @@ function Feed() {
               </Link>
               <Link to={`/Home/profile/${post.author}`}>
                 {postProfiles[post._id] && postProfiles[post._id].username && (
-                  <p style={{fontWeight:"bold"}}>{"@" + postProfiles[post._id].username}</p>
+                  <p style={{ fontWeight: "bold" }}>
+                    {"@" + postProfiles[post._id].username}
+                  </p>
                 )}
               </Link>
               {post.date && (
@@ -277,7 +299,107 @@ function Feed() {
                   })}
                 </p>
               )}
-              {isEditable && <FaEllipsisV className="ms-auto" color="white" />}
+              {(profile.role === "ADMIN" || profile._id === post.author) && (
+                <FaEllipsisV
+                  className="ms-auto"
+                  color="white"
+                  onClick={() => openEditModal(post)}
+                />
+              )}
+              {isEditModalOpen && (
+                <div className="modal-overlay">
+                  <div className="modal-content">
+                    <h2>
+                      Please follow the guidelines below for updating a post:
+                    </h2>
+                    <ul>
+                      <li>Keep your language respectful and inclusive.</li>
+                      <li>Avoid sharing sensitive personal information.</li>
+                      <li>
+                        Ensure your post does not violate any community rules.
+                      </li>
+                    </ul>
+                    <div className="modal-header" style={{ display: "flex" }}>
+                      <textarea
+                        className="modal-textarea"
+                        value={currentEditingPost?.content || ""}
+                        onChange={(e) =>
+                          setCurrentEditingPost({
+                            ...currentEditingPost!,
+                            content: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                    <div>
+                      {updatedImage || currentEditingPost?.image !== "" ? (
+                        <>
+                          <button
+                            className="modal-button text-gradient"
+                            style={{marginLeft: "-10px"}}
+                            onClick={() =>
+                                {
+                                setUpdatedImage(null);
+                              setCurrentEditingPost({
+                                ...currentEditingPost!,
+                                image: "",
+                              })}}
+                          >
+                            Remove Image
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            className="modal-button text-gradient"
+                            style={{marginLeft: "-10px"}}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              // Reference the file input using its ID and click it
+                              document.getElementById("file-input-1")?.click();
+                            }}
+                          >
+                            Attach Image
+                          </button>
+                          <input
+                            id="file-input-1"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              if (e.target.files && e.target.files[0]) {
+                                setUpdatedImage(e.target.files[0]);
+                              }
+                            }}
+                            style={{ display: "none" }}
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="modal-buttons">
+                      <button
+                        className="modal-button update"
+                        onClick={() =>
+                          handleUpdatePost(currentEditingPost! as client.Post)
+                        }
+                      >
+                        Update Post
+                      </button>
+                      <button
+                        className="modal-button cancel"
+                        onClick={() => {
+                          closeEditModal();
+                          setUpdatedImage(null);
+                        }}
+                      >
+                        Cancel
+                      </button>
+                      <button className="modal-button delete">
+                        Delete Post
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           <Suspense fallback={<LoadingEffect />}>
@@ -307,14 +429,19 @@ function Feed() {
               </span>
             </span>
             <span onClick={() => toggleCommentSection(post._id)}>
-              {visibleCommentPostId !== post._id ? <FaRegComment /> : <FaComment/>}
+              {visibleCommentPostId !== post._id ? (
+                <FaRegComment />
+              ) : (
+                <FaComment />
+              )}
               <span className="stat">
                 {" "}
                 {post.comments ? post.comments.length : 0}
               </span>
             </span>
           </div>
-          {(visibleCommentPostId === post._id || post.comments.length === 0) && (
+          {(visibleCommentPostId === post._id ||
+            post.comments.length === 0) && (
             <CommentSection
               postId={post._id}
               onNewCommentAdded={handleNewCommentAdded}
