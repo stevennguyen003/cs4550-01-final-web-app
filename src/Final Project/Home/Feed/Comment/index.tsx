@@ -111,7 +111,7 @@ function CommentSection({
           ...response,
           dob: formattedDOB,
         });
-        if (response.profilePicture) {
+        if (response.profilePicture && response.profilePicture !== "") {
           const url = `${BASE_API}/${response.profilePicture}`;
           const correctedUrl = url.replace(/\\/g, "/");
           setProfile({
@@ -161,7 +161,7 @@ function CommentSection({
         <div key={comment._id} className="comment">
           <img
             src={
-              commentProfiles[comment._id]
+              (commentProfiles[comment._id] && commentProfiles[comment._id].profilePicture && commentProfiles[comment._id].profilePicture !== "")
                 ? `${BASE_API}/${commentProfiles[comment._id].profilePicture}`
                 : defaultProfilePicUrl
             }

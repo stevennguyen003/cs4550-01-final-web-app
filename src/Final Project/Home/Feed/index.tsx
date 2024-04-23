@@ -175,7 +175,7 @@ function Feed() {
           ...response,
           dob: formattedDOB,
         });
-        if (response.profilePicture) {
+        if (response.profilePicture && response.profilePicture !== "") {
           const url = `${BASE_API}/${response.profilePicture}`;
           const correctedUrl = url.replace(/\\/g, "/");
           setProfile({
@@ -214,7 +214,7 @@ function Feed() {
       <div className="write-post-section">
         <div className="user-profile">
           <img
-            src={profile.profilePicture || defaultProfilePicUrl}
+            src={profile.profilePicture? profile.profilePicture : defaultProfilePicUrl}
             alt=""
             className="profile-image"
           />
@@ -265,7 +265,8 @@ function Feed() {
               <Link to={`/Home/profile/${post.author}`}>
                 <img
                   src={
-                    (postProfiles[post._id as any] as userClient.User)
+                    ((postProfiles[post._id as any] as userClient.User) && postProfiles[post._id as any].profilePicture
+                && postProfiles[post._id as any].profilePicture !== "")
                       ? `${BASE_API}/${
                           (postProfiles[post._id as any] as userClient.User)
                             .profilePicture
