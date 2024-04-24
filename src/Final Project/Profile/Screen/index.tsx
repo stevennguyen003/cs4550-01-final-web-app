@@ -1,9 +1,12 @@
 import Profile from "..";
 import ProfileFeed from "../Feed";
 import "./index.css";
+import Header from "../../Header";
 function ProfileScreen() {
     return (
+        <>
         <div className="profile-screen-container">
+        <Header />
             <div className="profile-picture-container">
                 <Profile />
             </div>
@@ -11,6 +14,7 @@ function ProfileScreen() {
                 <ProfileFeed />
             </div>
         </div>
+        </>
     )
 }
 export default ProfileScreen;

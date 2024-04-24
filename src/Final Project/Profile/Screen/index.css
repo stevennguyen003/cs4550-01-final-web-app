@@ -1,7 +1,9 @@
 .profile-screen-container {
-    height: 100vh;
+    padding-top: 70px; /* Adjust this value to match your header's height */
+    height: calc(100vh - 70px); /* Reduce the height by the header's height */
     display: flex;
     flex-direction: row;
+    overflow: auto; 
 }
 
 .profile-picture-container {
