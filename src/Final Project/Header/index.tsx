@@ -5,7 +5,7 @@ import './index.css';
 function Header() {
     return (
         <header className="header-container">
-            <Link to="/" className="header-logo">
+            <Link to="/Home" className="header-logo">
                 <h1 className="logo-text text-gradient">Senzu 🦇</h1>
             </Link>
             {/* we can add other nav links this section*/}
