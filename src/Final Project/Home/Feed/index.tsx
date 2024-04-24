@@ -21,7 +21,7 @@ function Feed() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [updatedImage, setUpdatedImage] = useState<File | null>(null);
   const [currentEditingPost, setCurrentEditingPost] =
-    useState<client.Post | null >(null);
+    useState<client.Post | null>(null);
   const defaultProfilePicUrl = "../images/default.jpeg";
   const [newPostContent, setNewPostContent] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -224,7 +224,7 @@ function Feed() {
       <div className="write-post-section">
         <div className="user-profile">
           <img
-            src={profile.profilePicture? profile.profilePicture : defaultProfilePicUrl}
+            src={profile.profilePicture ? profile.profilePicture : defaultProfilePicUrl}
             alt=""
             className="profile-image"
           />
@@ -251,7 +251,7 @@ function Feed() {
           style={{ display: "none" }}
         />
         <button
-          onClick={() => {setSelectedImage(null); handlePostSubmit();}}
+          onClick={() => { setSelectedImage(null); handlePostSubmit(); }}
           className="post-button"
           disabled={newPostContent.trim() === "" && selectedImage === null}
         >
@@ -276,10 +276,9 @@ function Feed() {
                 <img
                   src={
                     ((postProfiles[post._id as any] as userClient.User) && postProfiles[post._id as any].profilePicture
-                && postProfiles[post._id as any].profilePicture !== "")
-                      ? `${BASE_API}/${
-                          (postProfiles[post._id as any] as userClient.User)
-                            .profilePicture
+                      && postProfiles[post._id as any].profilePicture !== "")
+                      ? `${BASE_API}/${(postProfiles[post._id as any] as userClient.User)
+                        .profilePicture
                         }`.replace(/\\/g, "/")
                       : defaultProfilePicUrl
                   }
@@ -347,14 +346,14 @@ function Feed() {
                         <>
                           <button
                             className="modal-button text-gradient"
-                            style={{marginLeft: "-10px"}}
-                            onClick={() =>
-                                {
-                                setUpdatedImage(null);
+                            style={{ marginLeft: "-10px" }}
+                            onClick={() => {
+                              setUpdatedImage(null);
                               setCurrentEditingPost({
                                 ...currentEditingPost!,
                                 image: "",
-                              })}}
+                              })
+                            }}
                           >
                             Remove Image
                           </button>
@@ -363,7 +362,7 @@ function Feed() {
                         <>
                           <button
                             className="modal-button text-gradient"
-                            style={{marginLeft: "-10px"}}
+                            style={{ marginLeft: "-10px" }}
                             onClick={(e) => {
                               e.stopPropagation();
                               // Reference the file input using its ID and click it
@@ -404,9 +403,11 @@ function Feed() {
                       >
                         Cancel
                       </button>
-                      <button className="modal-button delete" onClick={() => {handleDeletePost(currentEditingPost?._id); 
+                      <button className="modal-button delete" onClick={() => {
+                        handleDeletePost(currentEditingPost?._id);
                         closeEditModal();
-                        setUpdatedImage(null) }}>
+                        setUpdatedImage(null)
+                      }}>
                         Delete Post
                       </button>
                     </div>
@@ -455,11 +456,11 @@ function Feed() {
           </div>
           {(visibleCommentPostId === post._id ||
             post.comments.length === 0) && (
-            <CommentSection
-              postId={post._id}
-              onNewCommentAdded={handleNewCommentAdded}
-            />
-          )}
+              <CommentSection
+                postId={post._id}
+                onNewCommentAdded={handleNewCommentAdded}
+              />
+            )}
         </div>
       ))}
       <br />

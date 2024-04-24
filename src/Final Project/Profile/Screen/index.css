@@ -1,0 +1,15 @@
+.profile-screen-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-picture-container {
+    width: 40%;
+    padding: 10px;
+}
+
+.profile-feed-container {
+    flex-grow: 1;
+    padding: 10px;
+}

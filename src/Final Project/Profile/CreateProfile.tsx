@@ -27,6 +27,7 @@ function CreateProfile() {
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
 
   const handleProfileSubmit = async (e: { preventDefault: () => void }) => {
+    console.log("Submitted");
     e.preventDefault();
     try {
       const user = {
