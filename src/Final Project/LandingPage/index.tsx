@@ -3,6 +3,7 @@ import LoginSidebar from "../Sidebar/LoginSidebar";
 import "./index.css";
 import { useParams } from "react-router";
 import CreateAccount from "../Sidebar/CreateAccount";
+import Header from "../Header";
 
 function LandingPage() {
   const { param } = useParams();
@@ -18,7 +19,9 @@ function LandingPage() {
   };
   return (
     <>
-
+      
+      <div className="content-wrapper">
+      <Header />
         <div className="d-flex justify-content-center text-center container-fluid h-100">
           <div className="row ">
             <div className="col-lg-3 d-none d-lg-block main-title">
@@ -33,12 +36,14 @@ function LandingPage() {
                 to answer your every question!
               </p>
             </div>
-            <div  className="col-lg-3 box" style={{backgroundColor:"black"}}></div>
+            {/* <div  className="col-lg-3 box" style={{backgroundColor:"black"}}></div> */}
             <div className="col-lg-3 box d-flex align-items-center justify-content-center">{renderPage()}</div>
           </div>
+        </div>
         </div>
 
     </>
   );
 }
 export default LandingPage;
+

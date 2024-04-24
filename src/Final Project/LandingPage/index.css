@@ -6,6 +6,10 @@ body {
     background-color: black;
 }
 
+.content-wrapper {
+  background-color: black;
+}
+
 .main-title {
   margin-top: 65px;
   display: flex;
