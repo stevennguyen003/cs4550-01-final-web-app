@@ -34,7 +34,7 @@ function FriendsList() {
                         </div>
                     </div>
                 </Link>
-            ))}
+            )}
         </div>
     );
 }
