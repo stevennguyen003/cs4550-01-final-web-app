@@ -114,3 +114,22 @@
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.25) rgba(0, 0, 0, 0.25);
 }
+
+.home-page-container {
+    display: flex;
+    flex-direction: column; /* Stack header on top of main content */
+    min-height: 100vh; /* Full viewport height */
+  }
+
+  .header-container {
+    flex: 0 0 auto; 
+  }
+
+
+  .main-content {
+    padding-top: 50px; /* Adjust this value to your header's height */
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

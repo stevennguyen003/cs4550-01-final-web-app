@@ -6,6 +6,8 @@ import CommentSection from "./Feed/Comment";
 import Feed from "./Feed/";
 import * as userClient from "../Profile/client";
 import { useEffect, useState } from "react";
+import Header from "../Header";
+
 function Home() {
     const BASE_API = process.env.REACT_APP_BACKEND_URL;
     const [profile, setProfile] = useState({
@@ -46,6 +48,9 @@ function Home() {
 
     return (
         <>
+          <div className="home-page-container">
+            <Header /> {/* This will place the header at the top */}
+            <div className="main-content">
             <div className="home-page-container wd-flex-row-container">
                 <div className="home-page-users-container">
                     <div className="home-page-users-pill">
@@ -69,6 +74,8 @@ function Home() {
                         <Chat />
                     </div>
                 </div>
+            </div>
+            </div>
             </div>
         </>
     )
