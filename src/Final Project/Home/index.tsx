@@ -48,9 +48,11 @@ function Home() {
         <>
             <div className="home-page-container wd-flex-row-container">
                 <div className="home-page-users-container">
+                <h1 className="text-gradient">Senzu </h1>
                     <div className="home-page-users-pill">
-                        <Link to={`/Profile/${profile._id}`}>Profile</Link>
-                        <h1>Friends List</h1>
+                        
+                        <Link to={`/Home/Profile/${profile._id}`}>Profile</Link>
+                        <h2>Friends List</h2>
                         <FriendsList />
                     </div>
                 </div>

@@ -218,7 +218,7 @@ function ProfileFeed() {
 
     return (
         <div className="community-posts-container">
-            <h1>Community Posts</h1>
+            <h2 >{profile.username}'s Posts</h2>
             {/* Write Post Section */}
             <div className="write-post-section">
                 <div className="user-profile">

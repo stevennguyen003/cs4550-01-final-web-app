@@ -50,7 +50,9 @@ function Profile(): JSX.Element {
   }, []);
 
   return (
+    <div ><h1 style={{marginBottom:"30px"}} className="text-gradient">Senzu </h1>
     <div className="profile-container">
+      
       <div className="profile-banner"></div>
       <div className="profile-banner"></div>
       <div className="profile-banner"></div>
@@ -87,6 +89,7 @@ function Profile(): JSX.Element {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
