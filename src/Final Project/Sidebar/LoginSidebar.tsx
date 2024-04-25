@@ -84,7 +84,7 @@ const signin = async () => {
             </button>
           </form>
           <Link to="/Main/CreateAccount">Register an account</Link> <br />
-          <Link to="/Home">Just visiting?</Link>
+          <Link to="/Home/Community">Just visiting?</Link>
         </div>
       </div>
     </>

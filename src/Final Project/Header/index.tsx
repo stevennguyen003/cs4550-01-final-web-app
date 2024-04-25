@@ -27,8 +27,14 @@ function Header() {
 
   return (
     <header className="header-container">
-      <Link to="/Home" className="header-logo">
+      <Link to="/Home/Community" className="header-logo">
         <h1 className="logo-text text-gradient">Senzu 🦇</h1>
+      </Link>
+      <Link to="/Home/Community" className="header-logo">
+        <h2 className="text-gradient">Community</h2>
+      </Link>
+      <Link to="/Home/Exercises" className="header-logo">
+        <h2 className="text-gradient">Exercises</h2>
       </Link>
       <div className="home-page-user">
         <Link className="text-gradient" to={`/Profile/${profile?._id}`}>

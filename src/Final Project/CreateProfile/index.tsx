@@ -33,7 +33,7 @@ function CreateProfile() {
                             <input type="file" className="form-control" id="login-account-picture" />
                         </div>
                         <br />
-                        <Link to="/Home" className="btn btn-primary"><b>CREATE PROFILE</b></Link>
+                        <Link to="/Home/Community" className="btn btn-primary"><b>CREATE PROFILE</b></Link>
                         <Link to="/">Already have an account?</Link>
                     </form>
                 </div>

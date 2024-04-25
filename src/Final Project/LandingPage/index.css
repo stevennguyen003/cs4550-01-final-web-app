@@ -18,6 +18,27 @@ body {
 
 }
 
+.landing-page-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  justify-content: right;
+}
+
+.landing-page-body-container {
+  padding: 50px;
+  text-align: center;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.landing-page-sidebar {
+  position: sticky;
+  height: 100%;
+  top: 0;
+}
+
 .text-gradient {
   background-image: linear-gradient(to bottom right, #c084fc, #db2777);
   color: transparent;
@@ -42,4 +63,8 @@ body {
   .main-title p {
     font-size: 14px;
   }
+}
+
+.landing-page-sidebar {
+  height: 100%;
 }
