@@ -1,6 +1,6 @@
 import "./index.css";
 import FriendsList from "./FriendsList";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import Chat from "./Chat";
 import CommentSection from "./Feed/Comment";
 import { getExercise } from "./Exercises/client";
@@ -26,10 +26,18 @@ function Home() {
         username: "",
         role: "USER",
     });
+<<<<<<< Updated upstream
     enum Screens { "Community", "Exercises" }
     const [screen, setScreen] = useState(Screens.Community);
     const [message, setMessage] = useState<string>("");
     const [responses, setResponses] = useState<Exercise[]>([]);
+=======
+    const navigate = useNavigate();
+    const handleSignout = async () => {
+        await userClient.signout();
+        navigate("/Main/Login");
+    }
+>>>>>>> Stashed changes
     useEffect(() => {
         const fetchProfile = async () => {
             try {
@@ -65,9 +73,15 @@ function Home() {
                 <div className="home-page-users-container">
                 <h1 className="text-gradient">Senzu </h1>
                     <div className="home-page-users-pill">
+<<<<<<< Updated upstream
                         <Link to={`/Profile/${profile._id}`}>Profile</Link>
                         <Link to="/">Sign Out</Link>
                         <h1>Friends List</h1>
+=======
+                        
+                        
+                        <h2>Friends List</h2>
+>>>>>>> Stashed changes
                         <FriendsList />
                     </div>
                 </div>
@@ -98,6 +112,10 @@ function Home() {
                     </div>
                 </div>
                 <div className="home-page-chat-container d-none d-xl-block">
+                    <div className="home-page-user" >
+                    <Link className="text-gradient" to={`/Home/Profile/${profile._id}`}>Profile</Link>
+                    <button onClick={handleSignout} className="post-button" style={{WebkitMaskPositionY:"right"}}>Signout</button>
+                    </div>
                     <div className="home-page-chat-pill">
                         <Chat />
                     </div>

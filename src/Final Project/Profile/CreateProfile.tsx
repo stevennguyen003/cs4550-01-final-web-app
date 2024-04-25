@@ -25,6 +25,7 @@ function CreateProfile() {
   const [bio, setBio] = useState("");
   const [yearsOfExperience, setYearsOfExperience] = useState(0);
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
+  const [sex, setSex] = useState("Male");
 
   const handleProfileSubmit = async (e: { preventDefault: () => void }) => {
     console.log("Submitted");
@@ -40,6 +41,7 @@ function CreateProfile() {
         displayName,
         bio,
         yearsOfExperience,
+        sex,
       };
       const response = await client.createUser(user); // Assume returns user with ID
       if (profilePicture) {
@@ -190,6 +192,23 @@ function CreateProfile() {
                 defaultValue={0}
                 onChange={(e) => setYearsOfExperience(Number(e.target.value))}
               />
+            </div>
+            <div className="form-group">
+              <label htmlFor="login-account-sex">
+                <b>
+                  SEX <span className="asterick">*</span>
+                </b>
+              </label>
+              <br />
+              <select
+                className="form-control"
+                id="login-account-sex"
+                value={sex}
+                onChange={(e) => setSex(e.target.value)}
+              >
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
             </div>
             <br />
             <button type="submit" className="btn btn-primary">
