@@ -21,10 +21,10 @@ function LandingPage() {
     <>
       
       <div className="content-wrapper">
-      <Header />
         <div className="d-flex justify-content-center text-center container-fluid h-100">
           <div className="row ">
             <div className="col-lg-3 d-none d-lg-block main-title">
+            <Header />
               <h1 className="text-gradient" style={{ fontSize: "60px" }}>
                 Senzu
               </h1>

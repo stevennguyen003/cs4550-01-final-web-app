@@ -127,8 +127,8 @@
 
 
   .main-content {
-    padding-top: 50px; /* Adjust this value to your header's height */
-    flex: 1; 
+    padding-top: 0px; /* Adjust this value to your header's height */
+    flex: .5; 
     display: flex;
     flex-direction: column;
     width: 100%;

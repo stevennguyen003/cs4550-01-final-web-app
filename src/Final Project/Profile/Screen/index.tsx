@@ -5,8 +5,8 @@ import Header from "../../Header";
 function ProfileScreen() {
     return (
         <>
-        <div className="profile-screen-container">
         <Header />
+        <div className="profile-screen-container">
             <div className="profile-picture-container">
                 <Profile />
             </div>

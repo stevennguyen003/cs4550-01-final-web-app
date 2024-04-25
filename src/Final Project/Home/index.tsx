@@ -48,8 +48,8 @@ function Home() {
 
     return (
         <>
+        <Header /> {/* This will place the header at the top */}
           <div className="home-page-container">
-            <Header /> {/* This will place the header at the top */}
             <div className="main-content">
             <div className="home-page-container wd-flex-row-container">
                 <div className="home-page-users-container">

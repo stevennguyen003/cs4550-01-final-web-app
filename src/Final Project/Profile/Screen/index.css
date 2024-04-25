@@ -1,6 +1,6 @@
 .profile-screen-container {
-    padding-top: 70px; /* Adjust this value to match your header's height */
-    height: calc(100vh - 70px); /* Reduce the height by the header's height */
+    padding-top: 25px; 
+    height: calc(100vh - 70px); 
     display: flex;
     flex-direction: row;
     overflow: auto; 
