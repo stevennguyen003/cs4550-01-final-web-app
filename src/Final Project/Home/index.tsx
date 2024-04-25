@@ -30,6 +30,7 @@ function Home() {
         role: "USER",
     });
     const [message, setMessage] = useState<string>("");
+    const [ holder, setHolder ] = useState<string>("");
     const [responses, setResponses] = useState<Exercise[]>([]);
     const navigate = useNavigate();
     const handleSignout = async () => {
@@ -39,6 +40,7 @@ function Home() {
     const searchExercise = async () => {
         try {
             const exerciseData = await getExercise(message);
+            setHolder(message);
             console.log(exerciseData); // JSON data fetched from the server
             setResponses(exerciseData);
             const encodedCriteria = encodeURIComponent(message);
@@ -112,7 +114,7 @@ function Home() {
                                             Search
                                         </button>
                                     </div>
-                                    <Exercises result={responses} />
+                                    <Exercises result={responses} search={holder} />
                                 </>
                             }
                         </div>

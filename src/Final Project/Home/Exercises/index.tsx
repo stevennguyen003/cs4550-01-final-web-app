@@ -14,7 +14,8 @@ interface Exercise {
     instructions: string[];
 }
 
-function Exercises({ result }: { result: Exercise[] }) {
+function Exercises({ result, search }: { result: Exercise[], search: string }) {
+    console.log("Search:", search);
     const [exercise, setExercise] = useState({
         name: "",
         bodyPart: "",
@@ -26,7 +27,6 @@ function Exercises({ result }: { result: Exercise[] }) {
     });
 
     const { query, id } = useParams();
-    const [searchTerm, setSearchTerm] = useState("");
 
     const handleSetExercise = (e: Exercise) => {
         const clicked = {
@@ -48,7 +48,7 @@ function Exercises({ result }: { result: Exercise[] }) {
                         <h1>Search Results</h1>
                         <div className="search-result-content">
                             {result.map((e) =>
-                                <Link onClick={() => (handleSetExercise(e))}to={`/Home/Search/${query}/${e.id}`}>
+                                <Link onClick={() => (handleSetExercise(e))} to={`/Home/Search/${search}/${e.id}`}>
                                     <div className="result-item card">
                                         <img src={e.gifUrl} className="result-img" />
                                         <p className="result-title card-img-overlay"><b>{e.name}</b></p>
