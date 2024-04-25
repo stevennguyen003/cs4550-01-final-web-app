@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaComment, FaEllipsisV, FaFile, FaTimes } from "react-icons/fa";
 import { SetStateAction, Suspense, useEffect, useState } from "react";
 import LoadingEffect from "../../Utilities/LoadingEffect";
@@ -15,6 +15,7 @@ import * as client from "./client";
 import * as userClient from "../../Profile/client";
 import "./index.css";
 import CommentSection from "./Comment";
+
 const BASE_API = process.env.REACT_APP_BACKEND_URL;
 
 function Feed() {
@@ -38,6 +39,7 @@ function Feed() {
   const [visibleCommentPostId, setVisibleCommentPostId] = useState<
     string | null
   >(null);
+  const navigate = useNavigate();
   const [comment, setComment] = useState("");
   const openEditModal = async (postId: string) => {
     const response = await client.findPostById(postId);
@@ -74,41 +76,46 @@ function Feed() {
     setNewPostContent(e.target.value);
   };
   const handlePostSubmit = async () => {
-    try {
-      // Assuming you have a function to create a new post
-      const newPost = await client.createPost({
-        _id: "",
-        content: newPostContent,
-        author: profile._id,
-        likes: [],
-        comments: [],
-        date: new Date(),
-      });
-      if (selectedImage) {
-        await client.uploadImage(newPost._id, selectedImage);
-        //console.log("Image uploaded successfully");
-
-        // Update the post with the image URL
-        const updatedPost = await client.findPostById(newPost._id);
-        if (updatedPost) {
-          newPost.image = updatedPost.image;
-        }
-      }
-      setPosts((prevPosts) => [newPost, ...prevPosts]);
+    if (profile._id === "" || profile._id === null) {
+      navigate("/Main/Login");
+    } else {
       try {
-        const authorProfile = await userClient.findUserById(newPost.author);
-        setPostProfiles((prevProfiles) => ({
-          ...prevProfiles,
-          [newPost._id]: authorProfile,
-        }));
+        // Assuming you have a function to create a new post
+        const newPost = await client.createPost({
+          _id: "",
+          content: newPostContent,
+          author: profile._id,
+          likes: [],
+          comments: [],
+          date: new Date(),
+        });
+        if (selectedImage) {
+          await client.uploadImage(newPost._id, selectedImage);
+          //console.log("Image uploaded successfully");
+
+          // Update the post with the image URL
+          const updatedPost = await client.findPostById(newPost._id);
+          if (updatedPost) {
+            newPost.image = updatedPost.image;
+          }
+        }
+        setPosts((prevPosts) => [newPost, ...prevPosts]);
+        try {
+          const authorProfile = await userClient.findUserById(newPost.author);
+          setPostProfiles((prevProfiles) => ({
+            ...prevProfiles,
+            [newPost._id]: authorProfile,
+          }));
+        } catch (error) {
+          console.error("Error fetching post author:", error);
+        }
+        setNewPostContent(""); // Clear the post content input field
       } catch (error) {
-        console.error("Error fetching post author:", error);
+        console.error("Error creating post:", error);
       }
-      setNewPostContent(""); // Clear the post content input field
-    } catch (error) {
-      console.error("Error creating post:", error);
     }
   };
+
   const toggleCommentSection = (postId: string) => {
     // If the clicked post's comment section is already visible, hide it, otherwise show it.
     setVisibleCommentPostId(visibleCommentPostId === postId ? null : postId);
@@ -213,12 +220,12 @@ function Feed() {
   const handleDeletePost = async (postId: any) => {
     try {
       const response = await client.deletePost(postId);
-      console.log('Delete response:', response);
+      console.log("Delete response:", response);
       setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
     } catch (error) {
       console.error("Error deleting post:", error);
     }
-  }
+  };
 
   return (
     <div className="community-posts-container">
@@ -227,7 +234,11 @@ function Feed() {
       <div className="write-post-section">
         <div className="user-profile">
           <img
-            src={profile.profilePicture ? profile.profilePicture : defaultProfilePicUrl}
+            src={
+              profile.profilePicture
+                ? profile.profilePicture
+                : defaultProfilePicUrl
+            }
             alt=""
             className="profile-image"
           />
@@ -254,7 +265,10 @@ function Feed() {
           style={{ display: "none" }}
         />
         <button
-          onClick={() => { setSelectedImage(null); handlePostSubmit(); }}
+          onClick={() => {
+            setSelectedImage(null);
+            handlePostSubmit();
+          }}
           className="post-button"
           disabled={newPostContent.trim() === "" && selectedImage === null}
         >
@@ -278,10 +292,12 @@ function Feed() {
               <Link to={`/Profile/${post.author}`}>
                 <img
                   src={
-                    ((postProfiles[post._id as any] as userClient.User) && postProfiles[post._id as any].profilePicture
-                      && postProfiles[post._id as any].profilePicture !== "")
-                      ? `${BASE_API}/${(postProfiles[post._id as any] as userClient.User)
-                        .profilePicture
+                    (postProfiles[post._id as any] as userClient.User) &&
+                    postProfiles[post._id as any].profilePicture &&
+                    postProfiles[post._id as any].profilePicture !== ""
+                      ? `${BASE_API}/${
+                          (postProfiles[post._id as any] as userClient.User)
+                            .profilePicture
                         }`.replace(/\\/g, "/")
                       : defaultProfilePicUrl
                   }
@@ -345,7 +361,9 @@ function Feed() {
                       />
                     </div>
                     <div>
-                      {(updatedImage || (currentEditingPost?.image && currentEditingPost?.image !== "")) ? (
+                      {updatedImage ||
+                      (currentEditingPost?.image &&
+                        currentEditingPost?.image !== "") ? (
                         <>
                           <button
                             className="modal-button text-gradient"
@@ -355,7 +373,7 @@ function Feed() {
                               setCurrentEditingPost({
                                 ...currentEditingPost!,
                                 image: "",
-                              })
+                              });
                             }}
                           >
                             Remove Image
@@ -406,11 +424,14 @@ function Feed() {
                       >
                         Cancel
                       </button>
-                      <button className="modal-button delete" onClick={() => {
-                        handleDeletePost(currentEditingPost?._id);
-                        closeEditModal();
-                        setUpdatedImage(null)
-                      }}>
+                      <button
+                        className="modal-button delete"
+                        onClick={() => {
+                          handleDeletePost(currentEditingPost?._id);
+                          closeEditModal();
+                          setUpdatedImage(null);
+                        }}
+                      >
                         Delete Post
                       </button>
                     </div>
@@ -459,11 +480,11 @@ function Feed() {
           </div>
           {(visibleCommentPostId === post._id ||
             post.comments.length === 0) && (
-              <CommentSection
-                postId={post._id}
-                onNewCommentAdded={handleNewCommentAdded}
-              />
-            )}
+            <CommentSection
+              postId={post._id}
+              onNewCommentAdded={handleNewCommentAdded}
+            />
+          )}
         </div>
       ))}
       <br />
