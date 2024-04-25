@@ -27,7 +27,7 @@ function App() {
           <Route element={<AdminRoute />}>
             <Route path="Home/Users" element={<UserList/>} />
           </Route>
-          <Route path="Home/*" element={<Home />} />
+          <Route path="Home/:param" element={<Home />} />
         </Routes>
       </Suspense>
     </HashRouter>
