@@ -8,6 +8,7 @@ import Feed from "./Feed/";
 import * as userClient from "../Profile/client";
 import { useEffect, useState } from "react";
 import Exercises from "./Exercises";
+import Header from "../Header";
 
 interface Exercise {
     name: string;
@@ -66,9 +67,9 @@ function Home() {
 
     return (
         <>
+        <Header />
             <div className="home-page-container wd-flex-row-container">
                 <div className="home-page-users-container">
-                <h1 className="text-gradient">Senzu </h1>
                     <div className="home-page-users-pill">
                         
                         
@@ -103,10 +104,6 @@ function Home() {
                     </div>
                 </div>
                 <div className="home-page-chat-container d-none d-xl-block">
-                    <div className="home-page-user" >
-                    <Link className="text-gradient" to={`/Profile/${profile._id}`}>Profile</Link>
-                    <button onClick={handleSignout} className="post-button" style={{WebkitMaskPositionY:"right"}}>Signout</button>
-                    </div>
                     <div className="home-page-chat-pill">
                         <Chat />
                     </div>

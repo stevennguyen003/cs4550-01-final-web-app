@@ -3,6 +3,7 @@ import LoginSidebar from "../Sidebar/LoginSidebar";
 import "./index.css";
 import { useParams } from "react-router";
 import CreateAccount from "../Sidebar/CreateAccount";
+import Header from "../Header";
 
 function LandingPage() {
   const { param } = useParams();
