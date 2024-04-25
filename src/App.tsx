@@ -17,8 +17,8 @@ function App() {
         <Routes>
         <Route path="/" element={<Navigate to="/Main/Login" />} />
           <Route path="Main/:param" element={<LandingPage />} />
-          <Route path="Main/Profile/create" element={<CreateProfile />} />
-          <Route path="Home/Profile/:param" element={<ProfileScreen />} />
+          <Route path="/Profile/create" element={<CreateProfile />} />
+          <Route path="/Profile/:param" element={<ProfileScreen />} />
           <Route path="Home" element={<Home />} />
 
         </Routes>
