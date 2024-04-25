@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams, Link } from "react-router-dom";
 import "./index.css"; // Update to new CSS file for styling changes
 import * as client from "./client";
 import { findProfileById } from "./client";
@@ -100,9 +100,9 @@ function Profile() {
 
   return (
     <>
-      <h1 style={{ marginBottom: "30px" }} className="text-gradient">
-        Senzu{" "}
-      </h1>
+      <Link to="/Home/Community" className="header-logo">
+        <h1 className="logo-text text-gradient">Senzu 🦇</h1>
+      </Link>
       <div className="profile-container">
         <div className="profile-banner"></div>
         <div className="profile-banner"></div>

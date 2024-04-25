@@ -1,0 +1,42 @@
+.exercise-details-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.exercise-details-info-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.exercise-details-info {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.exercise-details-info h3 {
+    margin: 10px;
+}
+
+.exercise-details-instructions-container {
+    border-image: linear-gradient(to bottom right, #c084fc, #db2777) 1;
+    background-image: linear-gradient(to bottom right, #c084fc, #db2777) 1;
+    background: linear-gradient(to bottom right, #c084fc, #db2777) 1;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.exercise-field {
+    
+}
+
+.exercise-details-instructions-container ol {
+    margin: 5px;
+}
+
+.exercise-details-instructions-container li {
+    margin: 5px;
+}

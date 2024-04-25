@@ -15,12 +15,13 @@ interface Exercise {
     bodyPart: string;
     equipment: string;
     gifUrl: string;
-    id: Number;
+    id: number;
     target: string;
+    instructions: string[];
 }
 
 function Home() {
-    const { param } = useParams();
+    const { param, search } = useParams();
     const BASE_API = process.env.REACT_APP_BACKEND_URL;
     const [profile, setProfile] = useState({
         profilePicture: null,

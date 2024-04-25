@@ -33,7 +33,7 @@ function Header() {
       <Link to="/Home/Community" className="header-logo">
         <h2 className="text-gradient">Community</h2>
       </Link>
-      <Link to="/Home/Exercises" className="header-logo">
+      <Link to="/Home/Search" className="header-logo">
         <h2 className="text-gradient">Exercises</h2>
       </Link>
       <div className="home-page-user">
