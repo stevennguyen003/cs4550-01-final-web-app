@@ -17,6 +17,7 @@ import * as userClient from "../client";
 import CommentSection from "../../Home/Feed/Comment";
 const BASE_API = process.env.REACT_APP_BACKEND_URL;
 function ProfileFeed() {
+    const [sessionProfile, setSessionProfile] = useState<string>("");
     const { param } = useParams();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [updatedImage, setUpdatedImage] = useState<File | null>(null);
@@ -165,6 +166,14 @@ function ProfileFeed() {
     }, []);
 
     useEffect(() => {
+        const fetchSessionID = async () => {
+            try {
+                const response = await userClient.profile();
+                setSessionProfile(response._id as string);
+            } catch (error) {
+                console.error("Failed to fetch profile:", error);
+            }
+        }
         const fetchProfile = async () => {
             try {
                 const response = await userClient.findUserById(param);
@@ -191,6 +200,7 @@ function ProfileFeed() {
         };
 
         fetchProfile();
+        fetchSessionID();
     }, []);
 
     const handleAttachClick = () => {
@@ -219,8 +229,10 @@ function ProfileFeed() {
 
     return (
         <div className="community-posts-container">
+            {sessionProfile === profile._id && (
+                <>
             <h2 >{profile.username}'s Posts</h2>
-            {/* Write Post Section */}
+          
             <div className="write-post-section">
                 <div className="user-profile">
                     <img
@@ -266,7 +278,7 @@ function ProfileFeed() {
                         <FaTimes style={{ marginLeft: "15px", color: "pink" }} />{" "}
                     </span>
                 </>
-            )}
+            )}</>)}
 
             {posts.filter((post) => (profile._id === post.author)).map((post) => (
                 <div key={post._id} className="post">
