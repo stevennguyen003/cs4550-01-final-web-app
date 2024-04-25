@@ -17,12 +17,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/Main/Login" />} />
           <Route path="Main/:param" element={<LandingPage />} />
-          <Route path="Profile/create" element={<CreateProfile />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="Home/Profile/:param" element={<ProfileScreen />} />
-            <Route path="Home/Profile/" element={<ProfileScreen />} />
-          </Route>
-          <Route path="Home" element={<Home />} />
+          <Route path="Profile/create" element={<CreateProfile />} />
+          <Route path="/Profile/:param" element={<ProfileScreen />} /></Route>
+          <Route path="Home/*" element={<Home />} />
+
         </Routes>
       </Suspense>
     </HashRouter>

@@ -18,11 +18,14 @@
     margin-bottom: 5px;
 }
 
-.home-page-body-header a {
-    text-decoration: none;
+.home-page-body-header h2 {
     color: white;
     margin-right: 1rem;
 }
+
+/* .screen-active {
+    color: linear-gradient(to bottom right, #c084fc, #db2777) 1;   
+} */
 
 .home-page-users-container {
     width: 350px;

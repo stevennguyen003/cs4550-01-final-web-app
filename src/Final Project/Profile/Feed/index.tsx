@@ -17,6 +17,7 @@ import * as userClient from "../client";
 import CommentSection from "../../Home/Feed/Comment";
 const BASE_API = process.env.REACT_APP_BACKEND_URL;
 function ProfileFeed() {
+    const { param } = useParams();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [updatedImage, setUpdatedImage] = useState<File | null>(null);
     const [currentEditingPost, setCurrentEditingPost] =
@@ -166,7 +167,7 @@ function ProfileFeed() {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await userClient.profile();
+                const response = await userClient.findUserById(param);
                 console.log(response);
                 const formattedDOB = response.dob
                     ? new Date(response.dob).toISOString().slice(0, 10)
@@ -271,7 +272,7 @@ function ProfileFeed() {
                 <div key={post._id} className="post">
                     <div className="post-header">
                         <div className="post-user">
-                            <Link to={`/Home/profile/${post.author}`}>
+                            <Link to={`/Profile/${post.author}`}>
                                 <img
                                     src={
                                         ((postProfiles[post._id as any] as userClient.User) && postProfiles[post._id as any].profilePicture
@@ -286,7 +287,7 @@ function ProfileFeed() {
                                     className="post-image"
                                 />
                             </Link>
-                            <Link to={`/Home/profile/${post.author}`}>
+                            <Link to={`/Profile/${post.author}`}>
                                 {postProfiles[post._id] && postProfiles[post._id].username && (
                                     <p style={{ fontWeight: "bold" }}>
                                         {"@" + postProfiles[post._id].username}
