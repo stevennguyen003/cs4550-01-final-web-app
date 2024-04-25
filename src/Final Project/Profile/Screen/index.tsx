@@ -7,7 +7,7 @@ function ProfileScreen() {
         <div className="profile-screen-container">
             <div className="profile-picture-container">
                 <Profile />
-                <Link to="/Home">Go back home</Link>
+                <Link to="/Home/Community">Go back home</Link>
             </div>
             <div className="profile-feed-container">
                 <ProfileFeed />

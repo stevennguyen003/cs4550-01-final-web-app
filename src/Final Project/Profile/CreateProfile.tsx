@@ -47,7 +47,7 @@ function CreateProfile() {
       if (profilePicture) {
         await client.uploadProfilePicture(response._id, profilePicture);
       }
-      navigate("/Home"); // Redirect to home on success
+      navigate("/Home/Community"); // Redirect to home on success
     } catch (error) {
       console.error("Failed to create profile:", error);
     }

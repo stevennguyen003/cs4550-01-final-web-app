@@ -19,8 +19,25 @@ function LandingPage() {
   };
   return (
     <>
-
-        <div className="d-flex justify-content-center text-center container-fluid h-100">
+      <div className="landing-page-container">
+        <div className="landing-page-body-container d-none d-md-block">
+          <h1 className="text-gradient" style={{ fontSize: "60px" }}>
+            Senzu
+          </h1>
+          <br />
+          <p className="text-gradient" style={{ fontSize: "25px" }}>
+            Share you fitness journey with Senzu, a social media where gym
+            enthusiasts connect, compete, learn from others and celebrate
+            milestones together! Powered by a personalized AI trainer ready
+            to answer your every question!
+          </p>
+        </div>
+        <div className="landing-page-body-sidebar" >
+          {renderPage()}
+        </div>
+      </div>
+      {/* 
+        <div className="d-flex container-fluid h-100">
           <div className="row ">
             <div className="col-lg-3 d-none d-lg-block main-title">
               <h1 className="text-gradient" style={{ fontSize: "60px" }}>
@@ -36,7 +53,7 @@ function LandingPage() {
             </div>
             <div className="col-lg-3 box d-flex align-items-center justify-content-center">{renderPage()}</div>
           </div>
-        </div>
+        </div> */}
 
     </>
   );

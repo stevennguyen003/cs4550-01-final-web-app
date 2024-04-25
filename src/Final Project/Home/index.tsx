@@ -1,6 +1,6 @@
 import "./index.css";
 import FriendsList from "./FriendsList";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
+import { Link, Routes, Route, useNavigate, useParams } from "react-router-dom";
 import Chat from "./Chat";
 import CommentSection from "./Feed/Comment";
 import { getExercise } from "./Exercises/client";
@@ -20,6 +20,7 @@ interface Exercise {
 }
 
 function Home() {
+    const { param } = useParams();
     const BASE_API = process.env.REACT_APP_BACKEND_URL;
     const [profile, setProfile] = useState({
         profilePicture: null,
@@ -27,8 +28,6 @@ function Home() {
         username: "",
         role: "USER",
     });
-    enum Screens { "Community", "Exercises" }
-    const [screen, setScreen] = useState(Screens.Community);
     const [message, setMessage] = useState<string>("");
     const [responses, setResponses] = useState<Exercise[]>([]);
     const navigate = useNavigate();
@@ -72,36 +71,34 @@ function Home() {
                 <div className="home-page-container wd-flex-row-container">
                     <div className="home-page-users-container">
                         <div className="home-page-users-pill">
-
-
                             <h2>Friends List</h2>
                             <FriendsList />
                         </div>
                     </div>
                     <div className="home-page-body-container">
                         <div className="home-page-body-pill">
-                            <div className="home-page-body-header">
-                                <h2 onClick={() => setScreen(Screens.Community)} className={screen === Screens.Community ? "screen-active" : ""}>Community</h2>
-                                <h2 onClick={() => setScreen(Screens.Exercises)} className={screen === Screens.Exercises ? "screen-active" : ""}>Exercises</h2>
-                                <textarea value={message} onChange={(e) =>
-                                    setMessage(e.target.value)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            (async () => {
-                                                try {
-                                                    const exerciseData = await getExercise(message);
-                                                    console.log(exerciseData); // JSON data fetched from the server
-                                                    setResponses(exerciseData);
-                                                } catch (error) {
-                                                    console.error("Error fetching exercise:", error);
-                                                } finally {
-                                                    setMessage("");
-                                                }
-                                            })();
-                                        }
-                                    }} className="form-control home-page-body-search"></textarea>
-                            </div>
-                            {screen === Screens.Community ? <Feed /> : <Exercises result={responses} />}
+                            {param === "Community" ? <Feed /> :
+                                <>
+                                    <textarea value={message} onChange={(e) =>
+                                        setMessage(e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                (async () => {
+                                                    try {
+                                                        const exerciseData = await getExercise(message);
+                                                        console.log(exerciseData); // JSON data fetched from the server
+                                                        setResponses(exerciseData);
+                                                    } catch (error) {
+                                                        console.error("Error fetching exercise:", error);
+                                                    } finally {
+                                                        setMessage("");
+                                                    }
+                                                })();
+                                            }
+                                        }} className="form-control home-page-body-search"></textarea>
+                                    <Exercises result={responses} />
+                                </>
+                            }
                         </div>
                     </div>
                     <div className="home-page-chat-container d-none d-xl-block">
