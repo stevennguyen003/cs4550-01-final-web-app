@@ -11,6 +11,7 @@ import ProtectedRoute from "./Final Project/Utilities/ProtectedRoute";
 import LoadingEffect from "./Final Project/Utilities/LoadingEffect";
 import AdminRoute from "./Final Project/Utilities/AdminRoute";
 import UserList from "./Final Project/UserList";
+import ExerciseDetails from "./Final Project/Home/Exercises/Details";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
             <Route path="Home/Users" element={<UserList/>} />
           </Route>
           <Route path="Home/:param" element={<Home />} />
+          <Route path="Home/Search/*" element={<Home />} />
+          <Route path="Home/Search/:query/:id" element={<Home />} />
         </Routes>
       </Suspense>
     </HashRouter>
