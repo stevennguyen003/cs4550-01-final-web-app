@@ -8,6 +8,7 @@ import { JsxElement } from "typescript";
 
 function Profile() {
   const [profile, setProfile] = useState({
+    _id: "",
     profilePicture: null,
     username: "",
     displayName: "",
@@ -16,6 +17,7 @@ function Profile() {
     experience: "",
     yearsOfExperience: 0,
   });
+  const [sessionProfile, setSessionProfile] = useState("");
   const navigate = useNavigate();
   const { param } = useParams();
   const [isEditing, setIsEditing] = useState(false);
@@ -54,14 +56,19 @@ function Profile() {
       }
       const update = await client.updateUser(newProfile);
       handleIsEditing();
+      setProfilePicture(null);
     } catch (error) {
-      console.error("Failed to create profile:", error);
+      console.error("Failed to update profile:", error);
     }
   }
 
 
   async function fetchProfile() {
     try {
+      const userResponse = await client.profile();
+      if (userResponse) {
+        setSessionProfile(userResponse._id as string);
+      }
       const response = await client.findUserById(param);
       const formattedDOB = response.dob
         ? new Date(response.dob).toISOString().slice(0, 10)
@@ -204,9 +211,9 @@ function Profile() {
                   <button onClick={handleIsFollowed} className="follow-button">
                     {isFollowed ? "Unfollow" : "Follow"}
                   </button>
-                  <button onClick={handleIsEditing} className="edit-button">
+                  {sessionProfile === profile._id && <button onClick={handleIsEditing} className="edit-button">
                     Edit
-                  </button>
+                  </button>}
                   <span className="follower-count">{followerCount} Followers</span>
                 </div>
               </div></>)}
