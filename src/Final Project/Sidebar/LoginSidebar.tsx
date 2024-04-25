@@ -35,7 +35,7 @@ const signin = async () => {
         //     duration: 3000,
         //     colorScheme: "#1DB954",
         //   });
-        navigate("/Home");
+        navigate("/Home/Community");
     } catch (error) {
         // toast({
         //     title: "Log in Failed!",
