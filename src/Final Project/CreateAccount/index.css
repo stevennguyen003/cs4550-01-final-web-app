@@ -1,0 +1,37 @@
+.create-account-body {
+    background-color: rgb(11, 11, 14);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.create-account-box {
+    height: 700px;
+    width: 500px;
+    padding: 15px;
+}
+
+.create-account-header {
+    color: lightgrey;
+}
+
+.wd-flex-row-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.create-account-box a {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.create-account-box a {
+    text-decoration: none;
+    color: lightgrey;
+    font-size: 15px;
+}
+
+.asterick {
+    color: rgb(210, 62, 62);
+}
