@@ -143,7 +143,8 @@ function Feed() {
     try {
       const response = await client.findAllPosts();
       //console.log("POSTS:", response);
-      setPosts(response);
+      const reversal = response.reverse();
+      setPosts(reversal);
       const profiles: { [key: string]: userClient.User } = {}; // Explicitly define the type of profiles
       for (const post of response) {
         try {
