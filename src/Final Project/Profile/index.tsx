@@ -16,7 +16,7 @@ function Profile() {
     experience: "",
     yearsOfExperience: 0,
   });
-  const [sessionProfile, setSessionProfile] = useState("");
+  const [sessionProfile, setSessionProfile] = useState<client.User>();
   const navigate = useNavigate();
   const { param } = useParams();
   const [isEditing, setIsEditing] = useState(false);
@@ -69,7 +69,7 @@ function Profile() {
     try {
       const userResponse = await client.profile();
       if (userResponse) {
-        setSessionProfile(userResponse._id as string);
+        setSessionProfile(userResponse);
       }
       const response = await client.findUserById(param);
       const formattedDOB = response.dob
@@ -200,6 +200,13 @@ function Profile() {
                 >
                   Save
                 </button>
+                <button
+                  onClick={() => setIsEditing(false)}
+                  type="button"
+                  className="edit-button post-button"
+                >
+                  Cancel
+                </button>
               </form>
             </>
           ) : (
@@ -214,12 +221,12 @@ function Profile() {
                 </span>
                 <div className="follower-info">
                   <button
-                    onClick={() => setIsEditing(true)}
-                    className="edit-button post-button"
+                    onClick={() => handleIsFollowed()}
+                    className="follow-button post-button"
                   >
                     {isFollowed ? "Unfollow" : "Follow"}
                   </button>
-                  {sessionProfile === profile._id && (
+                  {sessionProfile && (sessionProfile._id === profile._id || sessionProfile.role === 'ADMIN') && (
                     <button
                       onClick={() => setIsEditing(true)}
                       className="edit-button post-button"

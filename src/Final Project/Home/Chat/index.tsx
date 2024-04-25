@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./index.css";
 import * as client from "./client";
 
+
 interface Message {
     role: string;
     content: string;
@@ -10,10 +11,12 @@ interface Message {
 enum Screen { Chat, Exercises };
 
 function Chat() {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [conversation, setConversation] =
         useState<Message[]>([]);
     const [message, setMessage] = useState<string>("");
     const sendMessage = async () => {
+        setIsLoading(true);
         const userMessage = {
             role: "user", content: message
         };
@@ -22,11 +25,14 @@ function Chat() {
         setConversation([...conversation,
             userMessage, response]);
         setMessage("");
+        setIsLoading(false);
     };
     const getConversation = async () => {
+        setIsLoading(true);
         const conversation = await
             client.getConversation();
         setConversation(conversation);
+        setIsLoading(false);
     };
 
     useEffect(() => {
@@ -35,6 +41,11 @@ function Chat() {
 
     return (
         <div className="chatbox-container">
+            {isLoading ? <div className="loading-container">
+            <div className="loading-spinner"></div>
+      <p className="loading-text text-gradient">Please wait :)...</p>
+                    </div> : (
+                <>
             <div className="chatbox-messages">
                 {conversation.map((message, index) => (
                     <div key={index} className={`message
@@ -53,6 +64,7 @@ function Chat() {
                     }
                 }}
                 className="form-control chatbox-input" />
+                </>)}
             <button onClick={sendMessage}
                 className="btn btn-primary chatbox-submit post-button">
                 <b>ask our chatbot!</b>

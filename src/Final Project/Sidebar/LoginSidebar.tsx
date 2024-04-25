@@ -20,6 +20,7 @@ const [credentials, setCredentials] = useState<User>({
     profilePicture: "",
     bio: "",
     yearOfExperience: 0,
+    sex: "",
 });
 // const toast = useToast();
 const navigate = useNavigate();

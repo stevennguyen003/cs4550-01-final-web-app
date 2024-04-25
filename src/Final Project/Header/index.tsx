@@ -12,12 +12,12 @@ function Header() {
     navigate("/Main/Login");
   };
 
-  const [profile, setProfile] = React.useState("");
+  const [profile, setProfile] = React.useState<client.User>();
   React.useEffect(() => {
     const fetchProfile = async () => {
       try {
         const response = await client.profile();
-        setProfile(response._id);
+        setProfile(response);
       } catch (error) {
         console.error("Failed to fetch profile:", error);
       }
@@ -31,9 +31,14 @@ function Header() {
         <h1 className="logo-text text-gradient">Senzu 🦇</h1>
       </Link>
       <div className="home-page-user">
-        <Link className="text-gradient" to={`/Profile/${profile}`}>
+        <Link className="text-gradient" to={`/Profile/${profile?._id}`}>
           Profile
         </Link>
+        {profile?.role === "ADMIN" && ( 
+          <Link className="text-gradient" style={{marginLeft:"20px"}} to="/Home/Users">
+            Users
+            </Link>
+            )}
         <button
           onClick={handleSignout}
           className="post-button"

@@ -17,6 +17,7 @@ export interface User {
   profilePicture: string;
   bio: string;
   yearOfExperience: number;
+  sex: string;
 }
 
 const api = axios.create({

@@ -9,6 +9,8 @@ import CreateProfile from "./Final Project/Profile/CreateProfile";
 import ProfileScreen from "./Final Project/Profile/Screen";
 import ProtectedRoute from "./Final Project/Utilities/ProtectedRoute";
 import LoadingEffect from "./Final Project/Utilities/LoadingEffect";
+import AdminRoute from "./Final Project/Utilities/AdminRoute";
+import UserList from "./Final Project/UserList";
 
 function App() {
   return (
@@ -19,8 +21,11 @@ function App() {
           <Route path="Main/:param" element={<LandingPage />} />
           <Route path="Profile/create" element={<CreateProfile />} />
           <Route element={<ProtectedRoute />}>
-          <Route path="Profile/" element={<CreateProfile />} />
+            <Route path="Profile/" element={<CreateProfile />} />
             <Route path="/Profile/:param" element={<ProfileScreen />} />
+          </Route>
+          <Route element={<AdminRoute />}>
+            <Route path="Home/Users" element={<UserList/>} />
           </Route>
           <Route path="Home/*" element={<Home />} />
         </Routes>
