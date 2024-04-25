@@ -120,29 +120,35 @@ function Feed() {
     // If the clicked post's comment section is already visible, hide it, otherwise show it.
     setVisibleCommentPostId(visibleCommentPostId === postId ? null : postId);
   };
+
   const onLike = async (post: client.Post) => {
-    profile._id = profile._id.toString();
-    try {
-      let updatedPost: client.Post;
-      if (post.likes.includes(profile._id)) {
-        updatedPost = {
-          ...post,
-          likes: post.likes.filter((id) => id !== profile._id),
-        };
-      } else {
-        updatedPost = { ...post, likes: [...post.likes, profile._id] };
-      }
-      const response = await client.updatePost(updatedPost._id, updatedPost);
-      setPosts((prevPosts) => {
-        return prevPosts.map((prevPost) => {
-          if (prevPost._id === updatedPost._id) {
-            return updatedPost;
-          }
-          return prevPost;
+    if (profile._id === "" || profile._id === null) {
+      navigate("/Main/Login");
+      return;
+    } else {
+      profile._id = profile._id.toString();
+      try {
+        let updatedPost: client.Post;
+        if (post.likes.includes(profile._id)) {
+          updatedPost = {
+            ...post,
+            likes: post.likes.filter((id) => id !== profile._id),
+          };
+        } else {
+          updatedPost = { ...post, likes: [...post.likes, profile._id] };
+        }
+        const response = await client.updatePost(updatedPost._id, updatedPost);
+        setPosts((prevPosts) => {
+          return prevPosts.map((prevPost) => {
+            if (prevPost._id === updatedPost._id) {
+              return updatedPost;
+            }
+            return prevPost;
+          });
         });
-      });
-    } catch (error) {
-      console.error("Error updating post:", error);
+      } catch (error) {
+        console.error("Error updating post:", error);
+      }
     }
   };
 

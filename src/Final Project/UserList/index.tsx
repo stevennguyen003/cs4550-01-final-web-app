@@ -33,6 +33,10 @@ function UserList() {
     const response = await client.updateUser(userToUpdate);
     // console.log(response);
     fetchUsers();
+    const checkUser = await client.profile();
+    if (checkUser._id === userId) {
+        navigate("/Home/Community");
+    }
   };
 
   const fetchUsers = async () => {
