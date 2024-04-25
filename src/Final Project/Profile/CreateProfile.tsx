@@ -4,6 +4,7 @@ import "./create.css";
 import { Link } from "react-router-dom";
 import "@fontsource/poppins/700.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import * as followClient from "../Follows/client";
 
 function CreateProfile() {
   const [showIntro, setShowIntro] = useState(true);
@@ -47,6 +48,14 @@ function CreateProfile() {
       if (profilePicture) {
         await client.uploadProfilePicture(response._id, profilePicture);
       }
+      const newUser = await client.findUserById(response._id);
+      const template = {
+        _id: "",
+        user: newUser._id,
+        followers: [],
+        followings: [],
+      };
+      const follow = await followClient.createFollow(template);
       navigate("/Home/Community"); // Redirect to home on success
     } catch (error) {
       console.error("Failed to create profile:", error);

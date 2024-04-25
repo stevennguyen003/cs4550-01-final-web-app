@@ -4,6 +4,7 @@ import "./index.css"; // Update to new CSS file for styling changes
 import * as client from "./client";
 import { findProfileById } from "./client";
 import { JsxElement } from "typescript";
+import * as followClient from "../Follows/client";
 
 function Profile() {
   const [profile, setProfile] = useState({
@@ -29,10 +30,60 @@ function Profile() {
   const [bio, setBio] = useState("");
   const [yearsOfExperience, setYearsOfExperience] = useState(0);
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
+  const [followProfile, setFollowProfile] = useState<followClient.Follows>();
 
-  const handleIsFollowed = () => {
+  const handleIsFollowed = async () => {
+    if (isFollowed) {
+      setFollowProfile(
+        (follows: followClient.Follows | undefined) =>
+          (follows?.followers?.filter(
+            (follower) => follower !== sessionProfile?._id
+          ) || undefined) as followClient.Follows | undefined
+      );
+      const response = await followClient.updateFollow(
+        followProfile?._id as string,
+        followProfile as followClient.Follows
+      );
+      const sessionFollow = await followClient.findFollowsByUserId(
+        sessionProfile?._id as string
+      );
+      sessionFollow?.following?.filter(
+        (following: string) => following !== profile._id
+      );
+      const sessionUpdate = await followClient.updateFollow(
+        sessionFollow?._id as string,
+        sessionFollow as followClient.Follows
+      );
+    } else {
+      setFollowProfile(
+        (prevProfile) =>
+          ({
+            ...prevProfile,
+            followers: [...(prevProfile?.followers || []), sessionProfile?._id],
+          } as followClient.Follows)
+      );
+
+      const response = await followClient.updateFollow(
+        followProfile?._id as string,
+        {
+          ...followProfile,
+          followers: [...(followProfile?.followers || []), sessionProfile?._id],
+        } as followClient.Follows
+      );
+
+      const sessionFollow = await followClient.findFollowsByUserId(
+        sessionProfile?._id as string
+      );
+      sessionFollow?.following?.add(
+        (following: string) => sessionProfile?._id as string
+      );
+      const sessionUpdate = await followClient.updateFollow(
+        sessionFollow?._id as string,
+        sessionFollow as followClient.Follows
+      );
+    }
+    fetchFollows();
     setIsFollowed(!isFollowed);
-    setFollowerCount(followerCount + (isFollowed ? -1 : 1));
   };
 
   const handleIsEditing = async () => {
@@ -65,6 +116,18 @@ function Profile() {
     fetchProfile();
   };
 
+  async function fetchFollows() {
+    try {
+      const response = await followClient.findFollowsByUserId(param as string);
+      console.log("Fetched follows:", response);
+        setFollowProfile(response);
+        setFollowerCount(response.followers.length);
+        setIsFollowed(response.followers.includes(sessionProfile?._id));
+    } catch (error) {
+      console.error("Failed to fetch follows:", error);
+    }
+  }
+
   async function fetchProfile() {
     try {
       const userResponse = await client.profile();
@@ -96,6 +159,7 @@ function Profile() {
   }
   useEffect(() => {
     fetchProfile();
+    fetchFollows();
   }, []);
 
   return (
@@ -226,14 +290,16 @@ function Profile() {
                   >
                     {isFollowed ? "Unfollow" : "Follow"}
                   </button>
-                  {sessionProfile && (sessionProfile._id === profile._id || sessionProfile.role === 'ADMIN') && (
-                    <button
-                      onClick={() => setIsEditing(true)}
-                      className="edit-button post-button"
-                    >
-                      Edit
-                    </button>
-                  )}
+                  {sessionProfile &&
+                    (sessionProfile._id === profile._id ||
+                      sessionProfile.role === "ADMIN") && (
+                      <button
+                        onClick={() => setIsEditing(true)}
+                        className="edit-button post-button"
+                      >
+                        Edit
+                      </button>
+                    )}
                   <span className="follower-count">
                     {followerCount} Followers
                   </span>
