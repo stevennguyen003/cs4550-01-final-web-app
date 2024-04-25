@@ -79,7 +79,7 @@ const signin = async () => {
                     setCredentials({ ...credentials, password: e.target.value })}/>
             </div>
             <br />
-            <button onClick={signin} className="btn btn-primary post-button">
+            <button style={{marginBottom:"20px"}} onClick={signin} className="btn btn-primary post-button">
               <b>Sign in</b>
             </button>
           </form>
