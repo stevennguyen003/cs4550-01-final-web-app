@@ -34,11 +34,16 @@ function Header() {
         <Link className="text-gradient" to={`/Profile/${profile?._id}`}>
           Profile
         </Link>
-        {profile?.role === "ADMIN" && ( 
-          <Link className="text-gradient" style={{marginLeft:"20px"}} to="/Home/Users">
+        {profile?.role === "ADMIN" && (
+          <Link
+            className="text-gradient"
+            style={{ marginLeft: "20px" }}
+            to="/Home/Users"
+          >
             Users
-            </Link>
-            )}
+          </Link>
+        )}
+        {profile ? (
         <button
           onClick={handleSignout}
           className="post-button"
@@ -46,6 +51,15 @@ function Header() {
         >
           Signout
         </button>
+        ) : (
+        <button
+          onClick={() => navigate("/Main/Login")}
+          className="post-button"
+          style={{ marginLeft: "20px" }}
+        >
+          Signin
+        </button>
+        )}
       </div>
       {/* we can add other nav links this section*/}
     </header>
