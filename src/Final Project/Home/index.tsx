@@ -67,45 +67,47 @@ function Home() {
 
     return (
         <>
-        <Header />
-            <div className="home-page-container wd-flex-row-container">
-                <div className="home-page-users-container">
-                    <div className="home-page-users-pill">
-                        
-                        
-                        <h2>Friends List</h2>
-                        <FriendsList />
-                    </div>
-                </div>
-                <div className="home-page-body-container">
-                    <div className="home-page-body-pill">
-                        <div className="home-page-body-header">
-                            <h2 onClick={() => setScreen(Screens.Community)} className={screen === Screens.Community ? "screen-active" : ""}>Community</h2>
-                            <h2 onClick={() => setScreen(Screens.Exercises)} className={screen === Screens.Exercises ? "screen-active" : ""}>Exercises</h2>
-                            <textarea value={message} onChange={(e) =>
-                                setMessage(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") {
-                                        (async () => {
-                                            try {
-                                                const exerciseData = await getExercise(message);
-                                                console.log(exerciseData); // JSON data fetched from the server
-                                                setResponses(exerciseData);
-                                            } catch (error) {
-                                                console.error("Error fetching exercise:", error);
-                                            } finally {
-                                                setMessage("");
-                                            }
-                                        })();
-                                    }
-                                }} className="form-control home-page-body-search"></textarea>
+            <div className="split">
+                <Header />
+                <div className="home-page-container wd-flex-row-container">
+                    <div className="home-page-users-container">
+                        <div className="home-page-users-pill">
+
+
+                            <h2>Friends List</h2>
+                            <FriendsList />
                         </div>
-                        {screen === Screens.Community ? <Feed /> : <Exercises result={responses} />}
                     </div>
-                </div>
-                <div className="home-page-chat-container d-none d-xl-block">
-                    <div className="home-page-chat-pill">
-                        <Chat />
+                    <div className="home-page-body-container">
+                        <div className="home-page-body-pill">
+                            <div className="home-page-body-header">
+                                <h2 onClick={() => setScreen(Screens.Community)} className={screen === Screens.Community ? "screen-active" : ""}>Community</h2>
+                                <h2 onClick={() => setScreen(Screens.Exercises)} className={screen === Screens.Exercises ? "screen-active" : ""}>Exercises</h2>
+                                <textarea value={message} onChange={(e) =>
+                                    setMessage(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            (async () => {
+                                                try {
+                                                    const exerciseData = await getExercise(message);
+                                                    console.log(exerciseData); // JSON data fetched from the server
+                                                    setResponses(exerciseData);
+                                                } catch (error) {
+                                                    console.error("Error fetching exercise:", error);
+                                                } finally {
+                                                    setMessage("");
+                                                }
+                                            })();
+                                        }
+                                    }} className="form-control home-page-body-search"></textarea>
+                            </div>
+                            {screen === Screens.Community ? <Feed /> : <Exercises result={responses} />}
+                        </div>
+                    </div>
+                    <div className="home-page-chat-container d-none d-xl-block">
+                        <div className="home-page-chat-pill">
+                            <Chat />
+                        </div>
                     </div>
                 </div>
             </div>

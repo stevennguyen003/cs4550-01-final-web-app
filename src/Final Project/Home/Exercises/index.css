@@ -41,6 +41,8 @@
     -webkit-scrollbar: none;
     /* For Chrome, Safari, and Opera */
     overflow-x: hidden;
+    align-items: center;
+    justify-content: center;
 }
 
 .search-result-content {
@@ -62,7 +64,7 @@
 .result-item {
     margin: 10px;
     height: 14rem;
-    width: 10rem;
+    width: 14rem;
     border-radius: 10px;
     border-style: solid;
     border-width: 2px;

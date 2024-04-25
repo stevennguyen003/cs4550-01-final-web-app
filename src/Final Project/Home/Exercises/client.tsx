@@ -21,15 +21,3 @@ export const getExercise = async (query: string) => {
         throw error; // Rethrow the error to handle it elsewhere
     }
 };
-
-export const saveExercise = async (exercise: any) => {
-    try {
-        const url = `${BACKEND_URL}/api/exercises/${exercise.toLowerCase()}`;
-        const response = await axios.post(url);
-        console.log("SAVE EXERCISE: " + response.data);
-        return response.data; // Return the JSON data from the response
-    } catch (error) {
-        console.error("Error saving exercise:", error);
-        throw error; // Rethrow the error to handle it elsewhere
-    }
-};
