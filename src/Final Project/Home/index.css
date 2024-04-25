@@ -67,10 +67,17 @@
     flex-direction: column;
 }
 
+.search-bar-container {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .home-page-body-search {
     background-color: rgb(26, 26, 30) !important;
     resize: none;
-    width: 100%;
+    width: 85%;
     height: 3rem;
     border-color: lightgrey;
     color: white !important;

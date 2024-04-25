@@ -36,6 +36,17 @@ function Home() {
         await userClient.signout();
         navigate("/Main/Login");
     }
+    const searchExercise = async () => {
+        try {
+            const exerciseData = await getExercise(message);
+            console.log(exerciseData); // JSON data fetched from the server
+            setResponses(exerciseData);
+        } catch (error) {
+            console.error("Error fetching exercise:", error);
+        } finally {
+            setMessage("");
+        }
+    }
     useEffect(() => {
         const fetchProfile = async () => {
             try {
@@ -80,23 +91,19 @@ function Home() {
                         <div className="home-page-body-pill">
                             {param === "Community" ? <Feed /> :
                                 <>
-                                    <textarea value={message} onChange={(e) =>
-                                        setMessage(e.target.value)}
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter") {
-                                                (async () => {
-                                                    try {
-                                                        const exerciseData = await getExercise(message);
-                                                        console.log(exerciseData); // JSON data fetched from the server
-                                                        setResponses(exerciseData);
-                                                    } catch (error) {
-                                                        console.error("Error fetching exercise:", error);
-                                                    } finally {
-                                                        setMessage("");
-                                                    }
-                                                })();
-                                            }
-                                        }} className="form-control home-page-body-search"></textarea>
+                                    <div className="search-bar-container">
+                                        <textarea value={message} onChange={(e) =>
+                                            setMessage(e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") { searchExercise() }
+                                            }} className="form-control home-page-body-search"></textarea>
+                                        <button
+                                            onClick={() => searchExercise()}
+                                            className="post-button"
+                                            style={{ marginLeft: "20px" }}>
+                                            Search
+                                        </button>
+                                    </div>
                                     <Exercises result={responses} />
                                 </>
                             }
@@ -108,7 +115,7 @@ function Home() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
