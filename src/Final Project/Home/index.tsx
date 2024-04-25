@@ -3,9 +3,21 @@ import FriendsList from "./FriendsList";
 import { Link, Routes, Route } from "react-router-dom";
 import Chat from "./Chat";
 import CommentSection from "./Feed/Comment";
+import { getExercise } from "./Exercises/client";
 import Feed from "./Feed/";
 import * as userClient from "../Profile/client";
 import { useEffect, useState } from "react";
+import Exercises from "./Exercises";
+
+interface Exercise {
+    name: string;
+    bodyPart: string;
+    equipment: string;
+    gifUrl: string;
+    id: Number;
+    target: string;
+}
+
 function Home() {
     const BASE_API = process.env.REACT_APP_BACKEND_URL;
     const [profile, setProfile] = useState({
@@ -14,7 +26,10 @@ function Home() {
         username: "",
         role: "USER",
     });
-
+    enum Screens { "Community", "Exercises" }
+    const [screen, setScreen] = useState(Screens.Community);
+    const [message, setMessage] = useState<string>("");
+    const [responses, setResponses] = useState<Exercise[]>([]);
     useEffect(() => {
         const fetchProfile = async () => {
             try {
@@ -50,6 +65,7 @@ function Home() {
                 <div className="home-page-users-container">
                     <div className="home-page-users-pill">
                         <Link to={`/Profile/${profile._id}`}>Profile</Link>
+                        <Link to="/">Sign Out</Link>
                         <h1>Friends List</h1>
                         <FriendsList />
                     </div>
@@ -57,11 +73,27 @@ function Home() {
                 <div className="home-page-body-container">
                     <div className="home-page-body-pill">
                         <div className="home-page-body-header">
-                            <Link to="/Home/Community"><h3>COMMUNITY</h3></Link>
-                            <Link to="/Home/Exercises"><h3>EXERCISES</h3></Link>
-                            <textarea className="form-control home-page-body-search"></textarea>
+                            <h2 onClick={() => setScreen(Screens.Community)}>Community</h2>
+                            <h2 onClick={() => setScreen(Screens.Exercises)}>Exercises</h2>
+                            <textarea value={message} onChange={(e) =>
+                                setMessage(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        (async () => {
+                                            try {
+                                                const exerciseData = await getExercise(message);
+                                                console.log(exerciseData); // JSON data fetched from the server
+                                                setResponses(exerciseData);
+                                            } catch (error) {
+                                                console.error("Error fetching exercise:", error);
+                                            } finally {
+                                                setMessage("");
+                                            }
+                                        })();
+                                    }
+                                }} className="form-control home-page-body-search"></textarea>
                         </div>
-                        <Feed />
+                        {screen === Screens.Community ? <Feed /> : <Exercises result={responses} />}
                     </div>
                 </div>
                 <div className="home-page-chat-container d-none d-xl-block">

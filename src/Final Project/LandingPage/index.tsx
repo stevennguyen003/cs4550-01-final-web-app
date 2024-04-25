@@ -33,7 +33,6 @@ function LandingPage() {
                 to answer your every question!
               </p>
             </div>
-            <div  className="col-lg-3 box" style={{backgroundColor:"black"}}></div>
             <div className="col-lg-3 box d-flex align-items-center justify-content-center">{renderPage()}</div>
           </div>
         </div>

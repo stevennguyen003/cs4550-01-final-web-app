@@ -271,7 +271,7 @@ function ProfileFeed() {
                 <div key={post._id} className="post">
                     <div className="post-header">
                         <div className="post-user">
-                            <Link to={`/Home/profile/${post.author}`}>
+                            <Link to={`/Profile/${post.author}`}>
                                 <img
                                     src={
                                         ((postProfiles[post._id as any] as userClient.User) && postProfiles[post._id as any].profilePicture
@@ -286,7 +286,7 @@ function ProfileFeed() {
                                     className="post-image"
                                 />
                             </Link>
-                            <Link to={`/Home/profile/${post.author}`}>
+                            <Link to={`/Profile/${post.author}`}>
                                 {postProfiles[post._id] && postProfiles[post._id].username && (
                                     <p style={{ fontWeight: "bold" }}>
                                         {"@" + postProfiles[post._id].username}

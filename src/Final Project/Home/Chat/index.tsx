@@ -13,7 +13,6 @@ function Chat() {
     const [conversation, setConversation] =
         useState<Message[]>([]);
     const [message, setMessage] = useState<string>("");
-    const [chatScreen, setChatScreen] = useState(Screen.Chat);
     const sendMessage = async () => {
         const userMessage = {
             role: "user", content: message
