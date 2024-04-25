@@ -14,12 +14,12 @@ const AdminRoute = () => {
           console.log("Authenticated");
         } else {
           setIsAuthenticated(false);
-          navigate("/Home");
+          navigate("/Home/Community");
           return;
         }
       } catch (error) {
         console.error("Authentication check failed:", error);
-        navigate("/Home");
+        navigate("/Home/Community");
         return;
       }
     };
