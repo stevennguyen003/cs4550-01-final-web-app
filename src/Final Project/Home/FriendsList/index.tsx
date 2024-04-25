@@ -5,6 +5,7 @@ import { fetchFriends, Friend } from './client';
 
 function FriendsList() {
     const [friends, setFriends] = useState<Friend[]>([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const loadFriends = async () => {
@@ -19,21 +20,33 @@ function FriendsList() {
         loadFriends();
     }, []);
 
-    if (friends.length === 0) {
-        return <div>No friends added yet.</div>;
-    }
+    // Filter friends based on search term
+    const filteredFriends = friends.filter(friend => 
+        friend.requester.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div className="friends-list-container">
-            {friends.map((friend, index) =>
-                <Link to="Profile/1">
-                    <div key={index} className="friend">
-                        <FaUser className="fs-2" />
-                        <div className="friend-display-name">
-                            {friend.requester} 
+            <input
+                type="text"
+                placeholder="Search friends..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="form-control"
+            />
+            {filteredFriends.length > 0 ? (
+                filteredFriends.map((friend, index) =>
+                    <Link to={`/Profile/${friend._id}`} key={index}>
+                        <div className="friend">
+                            <FaUser className="fs-2" />
+                            <div className="friend-display-name">
+                                {friend.requester} 
+                            </div>
                         </div>
-                    </div>
-                </Link>
+                    </Link>
+                )
+            ) : (
+                <div>No friends found or added yet.</div>
             )}
         </div>
     );
