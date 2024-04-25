@@ -88,7 +88,9 @@ function Profile() {
   }, []);
 
   return (
+    <div ><h1 style={{marginBottom:"30px"}} className="text-gradient">Senzu </h1>
     <div className="profile-container">
+      
       <div className="profile-banner"></div>
       <div className="profile-banner"></div>
       <div className="profile-banner"></div>

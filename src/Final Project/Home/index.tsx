@@ -63,6 +63,7 @@ function Home() {
         <>
             <div className="home-page-container wd-flex-row-container">
                 <div className="home-page-users-container">
+                <h1 className="text-gradient">Senzu </h1>
                     <div className="home-page-users-pill">
                         <Link to={`/Profile/${profile._id}`}>Profile</Link>
                         <Link to="/">Sign Out</Link>
