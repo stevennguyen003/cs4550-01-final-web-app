@@ -48,9 +48,7 @@ function Profile() {
         bio: bio,
         yearsOfExperience: yearsOfExperience,
       }
-      // console.log(newProfile);
       setProfile(newProfile);
-      console.log(profile);
       const update = await client.updateUser(newProfile);
       const response = await client.findUserById(param);
       handleIsEditing();
@@ -66,13 +64,10 @@ function Profile() {
       const formattedDOB = response.dob
         ? new Date(response.dob).toISOString().slice(0, 10)
         : "";
-      console.log("Before Set Profile: " + response.name);
       setProfile({
         ...response,
         dob: formattedDOB,
       });
-      console.log("Response: " + response);
-      console.log("Setprofile: " + profile);
       if (response.profilePicture) {
         const url = `${process.env.REACT_APP_BACKEND_URL}/${response.profilePicture}`;
         const correctedUrl = url.replace(/\\/g, '/');

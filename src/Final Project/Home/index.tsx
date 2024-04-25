@@ -74,8 +74,8 @@ function Home() {
                 <div className="home-page-body-container">
                     <div className="home-page-body-pill">
                         <div className="home-page-body-header">
-                            <h2 onClick={() => setScreen(Screens.Community)}>Community</h2>
-                            <h2 onClick={() => setScreen(Screens.Exercises)}>Exercises</h2>
+                            <h2 onClick={() => setScreen(Screens.Community)} className={screen === Screens.Community ? "screen-active" : ""}>Community</h2>
+                            <h2 onClick={() => setScreen(Screens.Exercises)} className={screen === Screens.Exercises ? "screen-active" : ""}>Exercises</h2>
                             <textarea value={message} onChange={(e) =>
                                 setMessage(e.target.value)}
                                 onKeyDown={(e) => {
