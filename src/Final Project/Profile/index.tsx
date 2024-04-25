@@ -37,26 +37,31 @@ function Profile() {
   };
 
   const handleIsEditing = async () => {
-    setIsEditing(!isEditing);
+    setIsEditing(false);
   }
 
-  const handleProfileEdit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const handleProfileEdit = async () => {
+    
+    
     try {
       const response = await client.findUserById(param);
-      if (profilePicture) {
-        await client.uploadProfilePicture(response._id, profilePicture);
-      }
       const newProfile = {
         ...profile,
-        username: username,
-        displayName: displayName,
-        bio: bio,
-        yearsOfExperience: yearsOfExperience,
+        username: username ? username : response.username,
+        displayName: displayName ? displayName : response.displayName,
+        bio: bio ? bio : response.bio,
+        yearsOfExperience: yearsOfExperience ? yearsOfExperience : response.yearsOfExperience,
       }
       const update = await client.updateUser(newProfile);
-      handleIsEditing();
+      
+      if (profilePicture !== null) {
+        await client.uploadProfilePicture(response._id, profilePicture);
+        console.log("profile picture uploaded", profilePicture)
+      }
+      
+      setIsEditing(false);
       setProfilePicture(null);
+      fetchProfile();
     } catch (error) {
       console.error("Failed to update profile:", error);
     }
@@ -114,7 +119,7 @@ function Profile() {
         </div>
         <div className="profile-details">
           {isEditing ? (<>
-            <form onSubmit={handleProfileEdit}>
+            <form >
               <div className="form-group">
                 <label htmlFor="profile-display-name">
                   <b>
@@ -194,7 +199,7 @@ function Profile() {
                   }}
                 />
               </div>
-              <button type="submit" className="edit-button">
+              <button onClick={handleProfileEdit} className="edit-button">
                 Save
               </button>
             </form>
@@ -208,10 +213,10 @@ function Profile() {
                   {profile.yearsOfExperience} years grinding at the gym
                 </span>
                 <div className="follower-info">
-                  <button onClick={handleIsFollowed} className="follow-button">
+                  <button onClick={() => setIsEditing(true)} className="edit-button">
                     {isFollowed ? "Unfollow" : "Follow"}
                   </button>
-                  {sessionProfile === profile._id && <button onClick={handleIsEditing} className="edit-button">
+                  {sessionProfile === profile._id && <button onClick={() => setIsEditing(true)} className="edit-button">
                     Edit
                   </button>}
                   <span className="follower-count">{followerCount} Followers</span>

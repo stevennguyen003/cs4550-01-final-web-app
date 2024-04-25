@@ -139,7 +139,30 @@ function ProfileFeed() {
             console.error("Error updating post:", error);
         }
     };
-
+    const fetchProfile = async () => {
+        try {
+            const response = await userClient.findUserById(param);
+            console.log(response);
+            const formattedDOB = response.dob
+                ? new Date(response.dob).toISOString().slice(0, 10)
+                : "";
+            setProfile({
+                ...response,
+                dob: formattedDOB,
+            });
+            if (response.profilePicture && response.profilePicture !== "") {
+                const url = `${BASE_API}/${response.profilePicture}`;
+                const correctedUrl = url.replace(/\\/g, "/");
+                setProfile({
+                    ...response,
+                    profilePicture: correctedUrl,
+                });
+                //console.log("Profile Picture: ", correctedUrl);
+            }
+        } catch (error) {
+            console.error("Failed to fetch profile:", error);
+        }
+    };
     async function fetchPosts() {
         try {
             const response = await client.findAllPosts();
@@ -173,34 +196,13 @@ function ProfileFeed() {
             } catch (error) {
                 console.error("Failed to fetch profile:", error);
             }
-        }
-        const fetchProfile = async () => {
-            try {
-                const response = await userClient.findUserById(param);
-                console.log(response);
-                const formattedDOB = response.dob
-                    ? new Date(response.dob).toISOString().slice(0, 10)
-                    : "";
-                setProfile({
-                    ...response,
-                    dob: formattedDOB,
-                });
-                if (response.profilePicture && response.profilePicture !== "") {
-                    const url = `${BASE_API}/${response.profilePicture}`;
-                    const correctedUrl = url.replace(/\\/g, "/");
-                    setProfile({
-                        ...response,
-                        profilePicture: correctedUrl,
-                    });
-                    //console.log("Profile Picture: ", correctedUrl);
-                }
-            } catch (error) {
-                console.error("Failed to fetch profile:", error);
-            }
         };
+        
 
         fetchProfile();
         fetchSessionID();
+        setInterval(fetchPosts, 5000);
+        setInterval(fetchProfile, 5000);
     }, []);
 
     const handleAttachClick = () => {

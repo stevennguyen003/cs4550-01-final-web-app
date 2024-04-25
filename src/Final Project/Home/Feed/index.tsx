@@ -167,7 +167,8 @@ function Feed() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await userClient.profile();
+        const userResponse = await userClient.profile();
+        const response = await userClient.findUserById(userResponse._id);
         console.log(response);
         const formattedDOB = response.dob
           ? new Date(response.dob).toISOString().slice(0, 10)
@@ -191,6 +192,7 @@ function Feed() {
     };
 
     fetchProfile();
+    setInterval(fetchProfile, 30000);
   }, []);
 
   const handleAttachClick = () => {
