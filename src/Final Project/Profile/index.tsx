@@ -42,7 +42,6 @@ function Profile() {
 
   const handleProfileEdit = async () => {
     
-    
     try {
       const response = await client.findUserById(param);
       const newProfile = {
@@ -52,6 +51,10 @@ function Profile() {
         bio: bio ? bio : response.bio,
         yearsOfExperience: yearsOfExperience ? yearsOfExperience : response.yearsOfExperience,
       }
+      
+      setIsEditing(false);
+      fetchProfile();
+
       const update = await client.updateUser(newProfile);
       
       if (profilePicture !== null) {
