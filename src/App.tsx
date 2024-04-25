@@ -19,7 +19,7 @@ function App() {
           <Route path="Main/:param" element={<LandingPage />} />
           <Route path="/Profile/create" element={<CreateProfile />} />
           <Route path="/Profile/:param" element={<ProfileScreen />} />
-          <Route path="Home" element={<Home />} />
+          <Route path="Home/*" element={<Home />} />
 
         </Routes>
       </Suspense>
