@@ -1,6 +1,6 @@
 import "./index.css";
 import FriendsList from "./FriendsList";
-import { Link, Routes, Route, useNavigate, useParams } from "react-router-dom";
+import { Link, Routes, Route, useParams, useNavigate } from "react-router-dom";
 import Chat from "./Chat";
 import CommentSection from "./Feed/Comment";
 import { getExercise } from "./Exercises/client";
@@ -21,7 +21,7 @@ interface Exercise {
 }
 
 function Home() {
-    const { param, search } = useParams();
+    const { param, query, id } = useParams();
     const BASE_API = process.env.REACT_APP_BACKEND_URL;
     const [profile, setProfile] = useState({
         profilePicture: null,
@@ -41,6 +41,14 @@ function Home() {
             const exerciseData = await getExercise(message);
             console.log(exerciseData); // JSON data fetched from the server
             setResponses(exerciseData);
+            const encodedCriteria = encodeURIComponent(message);
+            const url = `/Home/Search/${encodedCriteria}`;
+            console.log("Navigating to:", url); // Check the constructed URL
+            console.log("Query:", query);
+            console.log("Id:", id);
+    
+            // Update query parameter in the URL
+            navigate(url);
         } catch (error) {
             console.error("Error fetching exercise:", error);
         } finally {

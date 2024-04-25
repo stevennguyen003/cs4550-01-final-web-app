@@ -1,5 +1,5 @@
 import "./index.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 interface Exercise {
     name: string;
     bodyPart: string;
@@ -11,6 +11,8 @@ interface Exercise {
 }
 
 function ExerciseDetails({ result }: { result: Exercise }) {
+
+    const { query } = useParams();
     const instr = result.instructions;
     return (
         <div className="exercise-details-container">
@@ -33,7 +35,7 @@ function ExerciseDetails({ result }: { result: Exercise }) {
                         </li>)}
                 </ol>
             </div>
-            <Link to="/Home/Search" className="text-gradient">
+            <Link to={`/Home/Search/${query}`} className="text-gradient">
                 go back
             </Link>
         </div>

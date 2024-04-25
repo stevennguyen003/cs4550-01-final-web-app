@@ -25,6 +25,9 @@ function Exercises({ result }: { result: Exercise[] }) {
         instructions: [] as string[],
     });
 
+    const { query, id } = useParams();
+    const [searchTerm, setSearchTerm] = useState("");
+
     const handleSetExercise = (e: Exercise) => {
         const clicked = {
             name: e.name,
@@ -37,16 +40,15 @@ function Exercises({ result }: { result: Exercise[] }) {
         }
         setExercise(clicked);
     }
-    const { search } = useParams();
     return (
         <div className="exercise-body-container">
             <div className="exercises-search-container">
                 <div className="search-result-container">
-                    {search ? <ExerciseDetails result={exercise}/> : <>
+                    {query ? <ExerciseDetails result={exercise}/> : <>
                         <h1>Search Results</h1>
                         <div className="search-result-content">
                             {result.map((e) =>
-                                <Link onClick={() => (handleSetExercise(e))}to={`/Home/Search/${e.id}`}>
+                                <Link onClick={() => (handleSetExercise(e))}to={`/Home/Search/${query}/${e.id}`}>
                                     <div className="result-item card">
                                         <img src={e.gifUrl} className="result-img" />
                                         <p className="result-title card-img-overlay"><b>{e.name}</b></p>
