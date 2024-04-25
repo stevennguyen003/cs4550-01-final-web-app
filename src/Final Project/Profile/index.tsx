@@ -17,6 +17,7 @@ function Profile() {
     yearsOfExperience: 0,
   });
   const navigate = useNavigate();
+  const { param } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [profilePic, setProfilePic] = useState("");
   const defaultProfilePicUrl = "../images/default.jpeg";
@@ -27,7 +28,6 @@ function Profile() {
   const [bio, setBio] = useState("");
   const [yearsOfExperience, setYearsOfExperience] = useState(0);
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
-  const { param } = useParams();
 
   const handleIsFollowed = () => {
     setIsFollowed(!isFollowed);
@@ -41,6 +41,10 @@ function Profile() {
   const handleProfileEdit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
+      const response = await client.findUserById(param);
+      if (profilePicture) {
+        await client.uploadProfilePicture(response._id, profilePicture);
+      }
       const newProfile = {
         ...profile,
         username: username,
@@ -48,9 +52,7 @@ function Profile() {
         bio: bio,
         yearsOfExperience: yearsOfExperience,
       }
-      setProfile(newProfile);
       const update = await client.updateUser(newProfile);
-      const response = await client.findUserById(param);
       handleIsEditing();
     } catch (error) {
       console.error("Failed to create profile:", error);
@@ -68,6 +70,11 @@ function Profile() {
         ...response,
         dob: formattedDOB,
       });
+      setProfilePicture(response.profilePicture);
+      setUsername(response.username);
+      setDisplayName(response.displayName);
+      setBio(response.bio);
+      setYearsOfExperience(response.yearsOfExperience);
       if (response.profilePicture) {
         const url = `${process.env.REACT_APP_BACKEND_URL}/${response.profilePicture}`;
         const correctedUrl = url.replace(/\\/g, '/');
