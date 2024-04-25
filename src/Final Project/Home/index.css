@@ -73,12 +73,7 @@
 .home-page-body-posts {
     flex-grow: 1;
 }
-.home-page-user{
-    display: flex;
-    align-items: center;
-    justify-content: space-between; 
-    margin-bottom: 10px;
-}
+
 .home-page-chat-container {
     width: 450px;
     padding: 10px;

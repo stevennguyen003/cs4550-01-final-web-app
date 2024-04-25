@@ -35,7 +35,7 @@ function Header() {
             </Link>
             <div className="home-page-user" >
                     <Link className="text-gradient" to={`/Profile/${profile}`}>Profile</Link>
-                    <button onClick={handleSignout} className="post-button" style={{WebkitMaskPositionY:"right"}}>Signout</button>
+                    <button onClick={handleSignout} className="post-button" style={{marginLeft:"20px"}}>Signout</button>
                     </div>
             {/* we can add other nav links this section*/}
         </header>
