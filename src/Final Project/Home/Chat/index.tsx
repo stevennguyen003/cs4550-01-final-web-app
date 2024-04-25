@@ -54,7 +54,7 @@ function Chat() {
                 }}
                 className="form-control chatbox-input" />
             <button onClick={sendMessage}
-                className="btn btn-primary chatbox-submit">
+                className="btn btn-primary chatbox-submit post-button">
                 <b>ask our chatbot!</b>
             </button>
         </div >

@@ -57,7 +57,7 @@ function CreateAccount() {
                 <input type="date" className="form-control" id="login-account-dob" value={dob} onChange={(e) => setDob(e.target.value)} />
               </div>
               <br />
-              <button type="submit" className="btn btn-primary"><b>SIGN UP</b></button>
+              <button type="submit" className="btn btn-primary post-button"><b>SIGN UP</b></button>
               <br />
               <Link to="/">Already have an account?</Link>
             </form>

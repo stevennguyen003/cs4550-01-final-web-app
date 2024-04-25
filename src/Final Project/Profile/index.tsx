@@ -196,7 +196,7 @@ function Profile() {
                 <button
                   onClick={handleProfileEdit}
                   type="button"
-                  className="edit-button"
+                  className="edit-button post-button"
                 >
                   Save
                 </button>
@@ -215,14 +215,14 @@ function Profile() {
                 <div className="follower-info">
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="edit-button"
+                    className="edit-button post-button"
                   >
                     {isFollowed ? "Unfollow" : "Follow"}
                   </button>
                   {sessionProfile === profile._id && (
                     <button
                       onClick={() => setIsEditing(true)}
-                      className="edit-button"
+                      className="edit-button post-button"
                     >
                       Edit
                     </button>

@@ -211,7 +211,7 @@ function CreateProfile() {
               </select>
             </div>
             <br />
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary post-button">
               <b>CREATE PROFILE</b>
             </button>
             <br />
