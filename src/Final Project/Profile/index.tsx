@@ -62,7 +62,7 @@ function Profile() {
 
   async function fetchProfile() {
     try {
-      const response = await client.profile();
+      const response = await client.findUserById(param);
       const formattedDOB = response.dob
         ? new Date(response.dob).toISOString().slice(0, 10)
         : "";

@@ -17,6 +17,7 @@ import * as userClient from "../client";
 import CommentSection from "../../Home/Feed/Comment";
 const BASE_API = process.env.REACT_APP_BACKEND_URL;
 function ProfileFeed() {
+    const { param } = useParams();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [updatedImage, setUpdatedImage] = useState<File | null>(null);
     const [currentEditingPost, setCurrentEditingPost] =
@@ -166,7 +167,7 @@ function ProfileFeed() {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await userClient.profile();
+                const response = await userClient.findUserById(param);
                 console.log(response);
                 const formattedDOB = response.dob
                     ? new Date(response.dob).toISOString().slice(0, 10)
