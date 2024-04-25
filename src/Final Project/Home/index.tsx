@@ -56,7 +56,7 @@ function Home() {
                     <div className="home-page-users-pill">
                         <Link to={`/Profile/${profile._id}`}>Profile</Link>
                         <h1>Friends List</h1>
-                        <FriendsList />
+                        <FriendsList /> {/* take a look at this in a bit */}
                     </div>
                 </div>
                 <div className="home-page-body-container">
