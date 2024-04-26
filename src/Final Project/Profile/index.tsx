@@ -33,58 +33,40 @@ function Profile() {
   const [followProfile, setFollowProfile] = useState<followClient.Follows>();
 
   const handleIsFollowed = async () => {
-    if (isFollowed) {
-      setFollowProfile(
-        (follows: followClient.Follows | undefined) =>
-          (follows?.followers?.filter(
-            (follower) => follower !== sessionProfile?._id
-          ) || undefined) as followClient.Follows | undefined
-      );
-      const response = await followClient.updateFollow(
-        followProfile?._id as string,
-        followProfile as followClient.Follows
-      );
-      const sessionFollow = await followClient.findFollowsByUserId(
-        sessionProfile?._id as string
-      );
-      sessionFollow?.following?.filter(
-        (following: string) => following !== profile._id
-      );
-      const sessionUpdate = await followClient.updateFollow(
-        sessionFollow?._id as string,
-        sessionFollow as followClient.Follows
-      );
-    } else {
-      setFollowProfile(
-        (prevProfile) =>
-          ({
-            ...prevProfile,
-            followers: [...(prevProfile?.followers || []), sessionProfile?._id],
-          } as followClient.Follows)
-      );
-
-      const response = await followClient.updateFollow(
-        followProfile?._id as string,
-        {
-          ...followProfile,
-          followers: [...(followProfile?.followers || []), sessionProfile?._id],
-        } as followClient.Follows
-      );
-
-      const sessionFollow = await followClient.findFollowsByUserId(
-        sessionProfile?._id as string
-      );
-      sessionFollow?.following?.add(
-        (following: string) => sessionProfile?._id as string
-      );
-      const sessionUpdate = await followClient.updateFollow(
-        sessionFollow?._id as string,
-        sessionFollow as followClient.Follows
-      );
+    if (!followProfile || !sessionProfile) {
+        console.error("No follow profile available");
+        return; // Exit the function if no follow profile is loaded.
     }
-    fetchFollows();
-    setIsFollowed(!isFollowed);
-  };
+
+    const updatedFollowers = isFollowed
+        ? followProfile.followers.filter(follower => follower !== sessionProfile?._id)
+        : [...(followProfile.followers || []), sessionProfile?._id];
+
+    try {
+      const filteredFollowers = updatedFollowers.filter((follower) => follower !== undefined).map((follower) => follower as string);
+      const updatedFollow: followClient.Follows = { ...followProfile, followers: filteredFollowers };
+      await followClient.updateFollow(followProfile._id, updatedFollow);
+
+      const sessionProfileFollows = await followClient.findFollowsByUserId(sessionProfile._id); 
+      const updatedFollowing = isFollowed
+            ? sessionProfileFollows.followings.filter((following: string) => following !== followProfile.user)
+            : [...(sessionProfileFollows.followings || []), followProfile.user];
+
+        const updatedSessionFollowProfile: followClient.Follows = {
+            ...sessionProfileFollows,
+            followings: updatedFollowing
+        };
+        console.log("CHECK", updatedSessionFollowProfile);
+        await followClient.updateFollow(updatedSessionFollowProfile._id, updatedSessionFollowProfile);
+
+      setFollowProfile(updatedFollow);
+      setIsFollowed(!isFollowed);
+      fetchFollows(); 
+    } catch (error) {
+      console.error("Failed to update follow status:", error);
+      
+    }
+};
 
   const handleIsEditing = async () => {
     setIsEditing(false);
@@ -119,9 +101,8 @@ function Profile() {
   async function fetchFollows() {
     try {
       const response = await followClient.findFollowsByUserId(param as string);
-      console.log("Fetched follows:", response);
         setFollowProfile(response);
-        setFollowerCount(response.followers.length);
+        setFollowerCount(response.followers.length === null ? 0 : response.followers.length);
         setIsFollowed(response.followers.includes(sessionProfile?._id));
     } catch (error) {
       console.error("Failed to fetch follows:", error);
@@ -151,7 +132,6 @@ function Profile() {
         const url = `${process.env.REACT_APP_BACKEND_URL}/${response.profilePicture}`;
         const correctedUrl = url.replace(/\\/g, "/");
         setProfilePic(correctedUrl);
-        console.log("Profile Picture: ", correctedUrl);
       }
     } catch (error) {
       console.error("Failed to fetch profile:", error);
@@ -161,6 +141,23 @@ function Profile() {
     fetchProfile();
     fetchFollows();
   }, []);
+  useEffect(() => {
+    const getSessionProfile = async () => {
+      // Function to fetch session profile from the backend or cache
+      const profile = await client.profile();
+      setSessionProfile(profile);
+    };
+  
+    if (!sessionProfile) {
+      getSessionProfile();
+    }
+  
+    if (param && sessionProfile) {
+      fetchProfile();
+      fetchFollows();
+    }
+  }, [param, sessionProfile]);
+  
 
   return (
     <>

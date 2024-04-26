@@ -1,0 +1,35 @@
+.friends-list-container {
+    flex-grow: 1;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 1rem;
+    overflow-y: auto;
+}
+
+.friend {
+    overflow: clip;
+    display: flex;
+}
+
+.friends-list-container a {
+    width: 100%;
+    margin-bottom: 1rem;
+    border: 1px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: lightgrey;
+}
+
+.friend-display-name {
+    overflow: clip;
+    text-overflow: ellipsis;
+}
+
+.fs-2 {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}

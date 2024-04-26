@@ -9,6 +9,7 @@ import * as userClient from "../Profile/client";
 import { useEffect, useState } from "react";
 import Exercises from "./Exercises";
 import Header from "../Header";
+import FollowingList from "./FollowingList";
 
 interface Exercise {
     name: string;
@@ -93,8 +94,8 @@ function Home() {
                 <div className="home-page-container wd-flex-row-container">
                     <div className="home-page-users-container">
                         <div className="home-page-users-pill">
-                            <h2>Friends List</h2>
-                            <FriendsList />
+                            <h2>Following List</h2>
+                            <FollowingList />
                         </div>
                     </div>
                     <div className="home-page-body-container">
