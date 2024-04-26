@@ -9,6 +9,8 @@
 .friend {
     overflow: clip;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .friends-list-container a {

@@ -57,7 +57,7 @@ function FollowingList() {
     return (
         <div className="friends-list-container">
             {followers.map((followers, index) =>
-                <Link to="Profile/1">
+                <Link to={`/Profile/${followers._id}`}>
                     <div key={index} className="friend">
                         <FaUser className="fs-2" />
                         <div className="friend-display-name">
