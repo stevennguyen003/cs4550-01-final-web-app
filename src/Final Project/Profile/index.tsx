@@ -156,7 +156,7 @@ function Profile() {
       fetchProfile();
       fetchFollows();
     }
-  }, [param, sessionProfile]);
+  }, [param]);
   
 
   return (
