@@ -19,18 +19,18 @@ function App() {
       <Suspense fallback={<LoadingEffect />}>
         <Routes>
           <Route path="/" element={<Navigate to="/Main/Login" />} />
-          <Route path="Main/:param" element={<LandingPage />} />
-          <Route path="Profile/create" element={<CreateProfile />} />
+          <Route path="/Main/:param" element={<LandingPage />} />
+          <Route path="/Profile/create" element={<CreateProfile />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="Profile/" element={<CreateProfile />} />
+            <Route path="/Profile/" element={<CreateProfile />} />
             <Route path="/Profile/:param" element={<ProfileScreen />} />
           </Route>
           <Route element={<AdminRoute />}>
-            <Route path="Home/Users" element={<UserList/>} />
+            <Route path="/Home/Users" element={<UserList/>} />
           </Route>
-          <Route path="Home/:param" element={<Home />} />
-          <Route path="Home/Search/*" element={<Home />} />
-          <Route path="Home/Search/:query/:id" element={<Home />} />
+          <Route path="/Home/*" element={<Home />} />
+          {/* <Route path="Home/Search/*" element={<Home />} /> */}
+          {/* <Route path="Home/Search/:query/:id" element={<Home />} /> */}
         </Routes>
       </Suspense>
     </HashRouter>
